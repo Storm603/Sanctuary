@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Sanctuary.Data.Models;
+using Sanctuary.Data.Models.UserTables;
 using Sanctuary.Web.Data;
 using Sanctuary.Web.Views.ViewModels;
 
@@ -12,11 +12,11 @@ namespace Sanctuary.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private UserManager<ApplicationUser> UserManager { get; set; }
-        private SignInManager<ApplicationUser> SignInManager { get; set; }
+        private UserManager<BaseApplicationUser> UserManager { get; set; }
+        private SignInManager<BaseApplicationUser> SignInManager { get; set; }
         private ApplicationDbContext ApplicationDbContext { get; set; }
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationDbContext applicationDbContext)
+        public AccountController(UserManager<BaseApplicationUser> userManager, SignInManager<BaseApplicationUser> signInManager, ApplicationDbContext applicationDbContext)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -39,7 +39,7 @@ namespace Sanctuary.Web.Controllers
                 return View(model);
             }
 
-            var user = new ApplicationUser()
+            var user = new ClientUser()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,

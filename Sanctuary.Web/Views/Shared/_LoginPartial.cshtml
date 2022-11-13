@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using Sanctuary.Data.Models
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Sanctuary.Data.Models.UserTables
+
+@inject SignInManager<BaseApplicationUser> SignInManager
+@inject UserManager<BaseApplicationUser> UserManager
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))

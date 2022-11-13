@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sanctuary.Web.Data;
 
@@ -11,9 +12,10 @@ using Sanctuary.Web.Data;
 namespace Sanctuary.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221113212134_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -888,7 +890,7 @@ namespace Sanctuary.Data.Migrations
                     b.HasOne("Sanctuary.Data.Models.UserTables.ClinicStaffUser", "ReplacedBy")
                         .WithMany("ClinicStaffLeaveReplace")
                         .HasForeignKey("ReplacedById")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Sanctuary.Data.Models.UserTables.ClinicStaffUser", "RequestedBy")
