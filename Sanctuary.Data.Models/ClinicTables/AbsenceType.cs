@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sanctuary.Data.Models.PetTables
+namespace Sanctuary.Data.Models.ClinicTables
 {
-    public class Breed
+    public class AbsenceType
     {
         [Key]
         public int Id { get; set; }
-        [MaxLength(50)]
-        public string Name { get; set; }
+
+        [MaxLength(15)]
+        public string Type { get; set; }
     }
 }

@@ -34,9 +34,15 @@ namespace Sanctuary.Web.Data
         public DbSet<Clinic> Clinics { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
+        public DbSet<AbsenceType> AbsenceType { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<MT_User_Addresses>().HasKey(x => new {x.AddressId, x.UserId});
+            builder.Entity<MT_Clinic_Addresses>().HasKey(x => new {x.AddressId, x.ClinicId});
+
+            builder.Entity<MT_Clinic_Addresses>().HasOne(x => x.Clinic).WithOne(x => x.Address).OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<MT_Clinic_Addresses>().HasOne(x => x.Address).WithOne().OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Appointment>().HasOne(cu => cu.Client).WithMany(a => a.AppointmentList)
                 .HasForeignKey(fk => fk.ClientId).OnDelete(DeleteBehavior.NoAction);

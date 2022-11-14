@@ -24,9 +24,7 @@ namespace Sanctuary.Data.Models.ClinicTables
         public string ClinicName { get; set; }
 
 
-        public int AddressId { get; set; }
-        [ForeignKey(nameof(AddressId))]
-        public Address Address { get; set; }
+        public MT_Clinic_Addresses Address { get; set; }
 
         public List<ClientUser> Users = new List<ClientUser>();
 

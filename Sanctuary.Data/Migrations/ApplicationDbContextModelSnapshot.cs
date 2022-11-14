@@ -174,6 +174,24 @@ namespace Sanctuary.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.AbsenceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AbsenceType");
+                });
+
             modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.Appointment", b =>
                 {
                     b.Property<Guid>("Id")
@@ -193,7 +211,8 @@ namespace Sanctuary.Data.Migrations
 
                     b.Property<string>("Reason")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime>("TimeOfAppointment")
                         .HasColumnType("datetime2");
@@ -213,9 +232,6 @@ namespace Sanctuary.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ClinicName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -234,8 +250,6 @@ namespace Sanctuary.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
                     b.ToTable("Clinics");
                 });
 
@@ -253,6 +267,9 @@ namespace Sanctuary.Data.Migrations
                     b.Property<int>("ExecutionTime")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("InvoiceId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -268,6 +285,8 @@ namespace Sanctuary.Data.Migrations
 
                     b.HasIndex("ClinicId");
 
+                    b.HasIndex("InvoiceId");
+
                     b.ToTable("ClinicServices");
                 });
 
@@ -277,9 +296,11 @@ namespace Sanctuary.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AbscenceType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AbscenceTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("BeginDate")
                         .HasColumnType("datetime2");
@@ -292,7 +313,8 @@ namespace Sanctuary.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -306,6 +328,8 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Guid");
+
+                    b.HasIndex("AbscenceTypeId");
 
                     b.HasIndex("ClinicId");
 
@@ -327,7 +351,8 @@ namespace Sanctuary.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<DateTime>("HospitalizationTime")
                         .HasColumnType("datetime2");
@@ -350,9 +375,6 @@ namespace Sanctuary.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FromId")
                         .HasColumnType("uniqueidentifier");
 
@@ -361,7 +383,8 @@ namespace Sanctuary.Data.Migrations
 
                     b.Property<string>("InvoiceNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<string>("ToId")
                         .IsRequired()
@@ -389,14 +412,16 @@ namespace Sanctuary.Data.Migrations
 
                     b.Property<string>("Dosage")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<Guid?>("MedicalLogId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -441,8 +466,8 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("SpecialInstructions")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("TimeOfArrival")
                         .HasColumnType("datetime2");
@@ -489,22 +514,19 @@ namespace Sanctuary.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Disctrict")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PostalCode")
-                        .HasColumnType("int");
+                    b.Property<string>("PostalCode")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("StreetName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Town")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float?>("lat")
@@ -518,24 +540,34 @@ namespace Sanctuary.Data.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.MT_User_Addresses", b =>
+            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.MT_Clinic_Addresses", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<Guid>("ClinicId")
+                        .HasColumnType("uniqueidentifier");
 
+                    b.HasKey("AddressId", "ClinicId");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
+
+                    b.HasIndex("ClinicId")
+                        .IsUnique();
+
+                    b.ToTable("MT_Clinic_Addresses");
+                });
+
+            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.MT_User_Addresses", b =>
+                {
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
+                    b.HasKey("AddressId", "UserId");
 
                     b.HasIndex("UserId");
 
@@ -558,7 +590,8 @@ namespace Sanctuary.Data.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("Id");
 
@@ -577,7 +610,8 @@ namespace Sanctuary.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -598,7 +632,8 @@ namespace Sanctuary.Data.Migrations
 
                     b.Property<string>("ReasonOfVisitation")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.HasKey("Id");
 
@@ -624,29 +659,29 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("EyeColor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("FurColor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
-                    b.Property<bool>("Microchip")
+                    b.Property<bool?>("Microchip")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Sex")
-                        .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<float>("Weight")
+                    b.Property<float?>("Weight")
                         .HasColumnType("real");
 
                     b.HasKey("Id");
@@ -688,13 +723,17 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -857,17 +896,6 @@ namespace Sanctuary.Data.Migrations
                     b.Navigation("Doctor");
                 });
 
-            modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.Clinic", b =>
-                {
-                    b.HasOne("Sanctuary.Data.Models.LocationTables.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-                });
-
             modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.ClinicServices", b =>
                 {
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
@@ -876,11 +904,21 @@ namespace Sanctuary.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Sanctuary.Data.Models.ClinicTables.Invoice", null)
+                        .WithMany("ServicesUsed")
+                        .HasForeignKey("InvoiceId");
+
                     b.Navigation("Clinic");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.ClinicStaffLeave", b =>
                 {
+                    b.HasOne("Sanctuary.Data.Models.ClinicTables.AbsenceType", "AbscenceType")
+                        .WithMany()
+                        .HasForeignKey("AbscenceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", null)
                         .WithMany("ClinicStaffLeaves")
                         .HasForeignKey("ClinicId");
@@ -896,6 +934,8 @@ namespace Sanctuary.Data.Migrations
                         .HasForeignKey("RequestedById")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("AbscenceType");
 
                     b.Navigation("ReplacedBy");
 
@@ -988,6 +1028,25 @@ namespace Sanctuary.Data.Migrations
                     b.Navigation("Clinic");
                 });
 
+            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.MT_Clinic_Addresses", b =>
+                {
+                    b.HasOne("Sanctuary.Data.Models.LocationTables.Address", "Address")
+                        .WithOne()
+                        .HasForeignKey("Sanctuary.Data.Models.LocationTables.MT_Clinic_Addresses", "AddressId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
+                        .WithOne("Address")
+                        .HasForeignKey("Sanctuary.Data.Models.LocationTables.MT_Clinic_Addresses", "ClinicId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Clinic");
+                });
+
             modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.MT_User_Addresses", b =>
                 {
                     b.HasOne("Sanctuary.Data.Models.LocationTables.Address", "Address")
@@ -1072,6 +1131,9 @@ namespace Sanctuary.Data.Migrations
 
             modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.Clinic", b =>
                 {
+                    b.Navigation("Address")
+                        .IsRequired();
+
                     b.Navigation("ClinicStaffLeaves");
 
                     b.Navigation("Doctor");
@@ -1082,6 +1144,11 @@ namespace Sanctuary.Data.Migrations
                     b.Navigation("PromoCodes");
 
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.Invoice", b =>
+                {
+                    b.Navigation("ServicesUsed");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.PetHotel", b =>

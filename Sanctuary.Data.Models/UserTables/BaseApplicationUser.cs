@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -23,9 +24,13 @@ namespace Sanctuary.Data.Models.UserTables
         }
 
         List<MT_User_Addresses> ListOfAddresses { get; set; }
-
-        public string? FirstName { get; set; } = null!;
-        public string? LastName { get; set; } = null!;
+        [Required]
+        [MaxLength(50)]
+        public string FirstName { get; set; } = null!;
+        [Required]
+        [MaxLength(50)]
+        public string LastName { get; set; } = null!;
+        [Required]
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public bool IsDeleted { get; set; }

@@ -18,6 +18,6 @@ namespace Sanctuary.Data.Models.ClinicTables
 
         public Guid ClinicId { get; set; }
         [ForeignKey(nameof(ClinicId))]
-        public Clinic Clinic { get; set; }
+        public Clinic? Clinic { get; set; }
     }
 }

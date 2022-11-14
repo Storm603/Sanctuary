@@ -14,11 +14,13 @@ namespace Sanctuary.Data.Models.ClinicTables
         [Key]
         public Guid Id { get; set; }
 
+        [Required]
+        [Range(0, 1000)]
         public int HotelPlaces { get; set; }
 
         public List<PetHotelGuest> Pet { get; set; }
 
-
+        [Required]
         public Guid ClinicId { get; set; }
         [ForeignKey(nameof(ClinicId))]
         public Clinic Clinic { get; set; }

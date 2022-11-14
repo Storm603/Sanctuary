@@ -13,11 +13,26 @@ namespace Sanctuary.Data.Models.ClinicTables
     {
         [Key]
         public Guid Guid { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
         public DateTime BeginDate { get; set; }
+        
+        [Required]
+        [DataType(DataType.DateTime)]
         public DateTime EndDate { get; set; }
-        public string AbscenceType { get; set; }
+
+        [Required]
+        public AbsenceType AbscenceType { get; set; }
+
+        [Required]
         public int Days { get; set; }
+
+        [StringLength(200,MinimumLength = 0)]
         public string Description { get; set; }
+
+        [Required]
+        public bool Approved { get; set; }
 
 
         [Required]

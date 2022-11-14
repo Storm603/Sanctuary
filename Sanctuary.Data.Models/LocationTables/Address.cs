@@ -13,11 +13,12 @@ namespace Sanctuary.Data.Models.LocationTables
     {
         [Key]
         public int Id { get; set; }
-        public string Country { get; set; }
-        public string Town { get; set; }
-        public int PostalCode { get; set; }
-        public string Disctrict { get; set; }
-        public string StreetName { get; set; }
+        public string? Country { get; set; }
+        public string? Town { get; set; }
+        [MaxLength(15)]
+        public string? PostalCode { get; set; }
+        public string? Disctrict { get; set; }
+        public string? StreetName { get; set; }
         public float? lon { get; set; }
         public float? lat { get; set; }
     }

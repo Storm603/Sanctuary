@@ -13,12 +13,17 @@ namespace Sanctuary.Data.Models.PetTables
     {
         [Key]
         public Guid Id { get; set; }
-        public string ReasonOfVisitation { get; set; }
-        public DateTime DateAndTimeOfVisitation { get; set; }
-        public List<Medicine> MedicineList { get; set; }
 
+        [Required] [MaxLength(300)] 
+        public string ReasonOfVisitation { get; set; } = null!;
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime DateAndTimeOfVisitation { get; set; }
+        public List<Medicine> MedicineList { get; set; } = null!;
+
+        [Required]
         public Guid PetId { get; set; }
         [ForeignKey(nameof(PetId))] 
-        public Pet Pet { get; set; }
+        public Pet Pet { get; set; } = null!;
     }
 }

@@ -12,10 +12,15 @@ namespace Sanctuary.Data.Models.PetTables
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        [MaxLength(40)]
         public string Type { get; set; }
+
+        [Range(0, 5)]
         public int Severity { get; set; }
 
-
+        [Required]
         public Guid PetId { get; set; }
         [ForeignKey(nameof(PetId))]
         public Pet Pet { get; set; }

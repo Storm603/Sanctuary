@@ -19,13 +19,20 @@ namespace Sanctuary.Data.Models.ClinicTables
         [ForeignKey(nameof(DoctorId))]
         public ClinicStaffUser Doctor { get; set; }
 
+        [Required]
         public string ClientId { get; set; }
         [ForeignKey(nameof(ClientId))]
-        public ClientUser? Client { get; set; }
+        public ClientUser Client { get; set; }
 
         public List<ClinicServices> Services = new List<ClinicServices>();
 
+
+        [Required]
+        [DataType(DataType.DateTime)]
         public DateTime TimeOfAppointment { get; set; }
+
+        [Required]
+        [StringLength(300,MinimumLength = 10)]
         public string Reason { get; set; }
         public string? PromoCode { get; set; }
     }
