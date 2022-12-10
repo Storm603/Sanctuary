@@ -22,8 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sanctuary.API\Sanctuary.API.csproj" />
     <ProjectReference Include="..\Sanctuary.Data.Models\Sanctuary.Data.Models.csproj" />
     <ProjectReference Include="..\Sanctuary.Data\Sanctuary.Data.csproj" />
+    <ProjectReference Include="..\Sanctuary.Services\Sanctuary.Services.csproj" />
     <ProjectReference Include="..\Sanctuary.Web.ViewModels\Sanctuary.Web.ViewModels.csproj" />
   </ItemGroup>
 

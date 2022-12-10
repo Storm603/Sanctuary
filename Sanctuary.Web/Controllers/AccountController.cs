@@ -39,7 +39,7 @@ namespace Sanctuary.Web.Controllers
                 return View(model);
             }
 
-            var user = new ClientUser()
+            var user = new BaseApplicationUser()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,

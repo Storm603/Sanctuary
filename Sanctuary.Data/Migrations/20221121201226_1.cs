@@ -28,11 +28,11 @@ namespace Sanctuary.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Town = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PostalCode = table.Column<int>(type: "int", nullable: false),
-                    Disctrict = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StreetName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Town = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    Disctrict = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StreetName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     lon = table.Column<float>(type: "real", nullable: true),
                     lat = table.Column<float>(type: "real", nullable: true)
                 },
@@ -118,8 +118,10 @@ namespace Sanctuary.Data.Migrations
                     DeletedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClinicId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    BaseUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     TotalPaidDaysLeave = table.Column<int>(type: "int", nullable: true),
                     ClinicStaffUser_ClinicId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ClinicStaffUser_BaseUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -138,6 +140,16 @@ namespace Sanctuary.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_AspNetUsers_BaseUserId",
+                        column: x => x.BaseUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_AspNetUsers_ClinicStaffUser_BaseUserId",
+                        column: x => x.ClinicStaffUser_BaseUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Clinics_ClinicId",
                         column: x => x.ClinicId,
@@ -676,9 +688,23 @@ namespace Sanctuary.Data.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_BaseUserId",
+                table: "AspNetUsers",
+                column: "BaseUserId",
+                unique: true,
+                filter: "[BaseUserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_ClinicId",
                 table: "AspNetUsers",
                 column: "ClinicId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_ClinicStaffUser_BaseUserId",
+                table: "AspNetUsers",
+                column: "ClinicStaffUser_BaseUserId",
+                unique: true,
+                filter: "[ClinicStaffUser_BaseUserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_ClinicStaffUser_ClinicId",

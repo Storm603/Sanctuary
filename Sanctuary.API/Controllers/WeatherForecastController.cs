@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using Sanctuary.Web.Views.ViewModels.APIViewModels;
 
 namespace Sanctuary.API.Controllers
 {
@@ -8,18 +10,13 @@ namespace Sanctuary.API.Controllers
     {
         [HttpGet]
         [Route("/GetWeatherData")]
-        public async Task<JsonResult> RapidApiWeatherData()
+        public async Task<JsonResult> OpenWeatherMapData()
         {
             var client = new HttpClient();
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri("https://weatherbit-v1-mashape.p.rapidapi.com/forecast/3hourly?lat=43.853089&lon=25.963312&units=metric"),
-                Headers =
-                {
-                    { "X-RapidAPI-Key", "46ce0afd0cmsh1b8cdc5a65d1bcfp173666jsnddf5b2ce9226" },
-                    { "X-RapidAPI-Host", "weatherbit-v1-mashape.p.rapidapi.com" },
-                },
+                RequestUri = new Uri("https://api.openweathermap.org/data/2.5/forecast?q=Rousse&appid=d0a44359ed6ad390e8f72e246d84ba93"),
             };
             
             using var response = await client.SendAsync(request);
@@ -36,9 +33,17 @@ namespace Sanctuary.API.Controllers
                 return null;
             }
 
-            ;
+
+            JObject obj = JObject.Parse(body);
+
+            JToken results = obj["list"];
+            HomePageWeatherForecastDTO dto = new HomePageWeatherForecastDTO()
+            {
+                Main = new CommonDetails() { }
+            };
 
             return new JsonResult(body);
+
         }
     }
 }

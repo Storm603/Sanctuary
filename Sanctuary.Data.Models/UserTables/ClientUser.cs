@@ -10,8 +10,14 @@ using Sanctuary.Data.Models.PetTables;
 
 namespace Sanctuary.Data.Models.UserTables
 {
-    public class ClientUser : BaseApplicationUser
+    public class ClientUser
     {
+        public ClientUser()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+        public string Id { get; set; }
+
         public List<Pet> PetOwnerships = new List<Pet>();
         public List<Invoice> Invoices = new List<Invoice>();
         public List<Appointment> AppointmentList = new List<Appointment>();
@@ -21,7 +27,9 @@ namespace Sanctuary.Data.Models.UserTables
         public Clinic Clinic { get; set; }
 
 
-
+        public string BaseUserId { get; set; }
+        [ForeignKey(nameof(BaseUserId))]
+        public BaseApplicationUser BaseApplicationUser { get; set; }
 
     }
 }

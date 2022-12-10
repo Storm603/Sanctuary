@@ -16,7 +16,10 @@ namespace Sanctuary.Data.Models.PetTables
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
+
         [Required]
+        public int BreedId { get; set; }
+        [ForeignKey(nameof(BreedId))]
         public Breed Breed { get; set; }
         [Required]
         [DataType(DataType.DateTime)]

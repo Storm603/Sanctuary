@@ -9,8 +9,15 @@ using Sanctuary.Data.Models.LocationTables;
 
 namespace Sanctuary.Data.Models.UserTables
 {
-    public class ClinicStaffUser : BaseApplicationUser
+    public class ClinicStaffUser
     {
+        public ClinicStaffUser()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+        public string Id { get; set; }
+
+
         public List<Appointment> Schedule = new List<Appointment>();
 
         public int TotalPaidDaysLeave { get; set; }
@@ -24,5 +31,10 @@ namespace Sanctuary.Data.Models.UserTables
 
         [InverseProperty("ReplacedBy")]
         public List<ClinicStaffLeave> ClinicStaffLeaveReplace { get; set; }
+
+
+        public string BaseUserId { get; set; }
+        [ForeignKey(nameof(BaseUserId))]
+        public BaseApplicationUser BaseApplicationUser { get; set; }
     }
 }

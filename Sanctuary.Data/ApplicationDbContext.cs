@@ -7,6 +7,7 @@ using Sanctuary.Data.Models.ClinicTables;
 using Sanctuary.Data.Models.LocationTables;
 using Sanctuary.Data.Models.PetTables;
 using Sanctuary.Data.Models.UserTables;
+using Sanctuary.Data.Seeding;
 
 namespace Sanctuary.Web.Data
 {
@@ -36,6 +37,9 @@ namespace Sanctuary.Web.Data
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<AbsenceType> AbsenceType { get; set; }
 
+
+        public DbSet<MT_Clinic_Addresses> MtClinicAddresses { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<MT_User_Addresses>().HasKey(x => new {x.AddressId, x.UserId});
@@ -53,7 +57,7 @@ namespace Sanctuary.Web.Data
                 .OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Clinic>().HasMany(x => x.Users).WithOne(x => x.Clinic).HasForeignKey(x => x.ClinicId)
                 .OnDelete(DeleteBehavior.NoAction);
-
+                
             builder.Entity<PetHotel>().HasKey(x => x.Id);
             builder.Entity<Clinic>().HasKey(x => x.Id);
 
@@ -61,13 +65,6 @@ namespace Sanctuary.Web.Data
                 .OnDelete(DeleteBehavior.NoAction);
             builder.Entity<ClinicStaffLeave>().HasOne(x => x.ReplacedBy).WithMany(x => x.ClinicStaffLeaveReplace).HasForeignKey(x => x.ReplacedById)
                 .OnDelete(DeleteBehavior.NoAction);
-            //builder.Entity<ClinicStaffLeave>().HasOne(x => x.ReplacedById).WithOne().OnDelete(DeleteBehavior.NoAction);
-            //builder.Entity<PetHotel>().HasOne(x => x.Clinic).WithOne(x => x.PetHotel).HasForeignKey(x => x.).OnDelete(DeleteBehavior.NoAction);
-
-
-
-
-
 
             base.OnModelCreating(builder);
         }

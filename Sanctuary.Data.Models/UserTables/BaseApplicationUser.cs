@@ -12,15 +12,16 @@ using Sanctuary.Data.Models.LocationTables;
 
 namespace Sanctuary.Data.Models.UserTables
 {
-    public abstract class BaseApplicationUser : IdentityUser
+    public class BaseApplicationUser : IdentityUser
     {
-        protected BaseApplicationUser()
+        public BaseApplicationUser()
         {
-            Id = Guid.NewGuid().ToString();
+            base.Id = Guid.NewGuid().ToString();
             CreatedOn = DateTime.UtcNow;
             this.Roles = new HashSet<IdentityUserRole<string>>();
-            this.Claims = new HashSet<IdentityUserClaim<string>>();
+            this.Claims = new HashSet<IdentityUserClaim<string>>(); 
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            ListOfAddresses = new List<MT_User_Addresses>();
         }
 
         List<MT_User_Addresses> ListOfAddresses { get; set; }
@@ -35,7 +36,11 @@ namespace Sanctuary.Data.Models.UserTables
         public DateTime? ModifiedOn { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedOn { get; set; }
-        
+
+
+        //public ClientUser ClientUser { get; set; }
+        //public ClinicStaffUser ClinicStaffUser { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }

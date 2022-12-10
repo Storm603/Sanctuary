@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sanctuary.Web.Data;
 
@@ -11,9 +12,10 @@ using Sanctuary.Web.Data;
 namespace Sanctuary.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221121201226_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -556,7 +558,7 @@ namespace Sanctuary.Data.Migrations
                     b.HasIndex("ClinicId")
                         .IsUnique();
 
-                    b.ToTable("MtClinicAddresses");
+                    b.ToTable("MT_Clinic_Addresses");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.MT_User_Addresses", b =>
@@ -711,6 +713,10 @@ namespace Sanctuary.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -778,12 +784,13 @@ namespace Sanctuary.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("BaseApplicationUser");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClientUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.HasBaseType("Sanctuary.Data.Models.UserTables.BaseApplicationUser");
 
                     b.Property<string>("BaseUserId")
                         .IsRequired()
@@ -792,37 +799,38 @@ namespace Sanctuary.Data.Migrations
                     b.Property<Guid>("ClinicId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("BaseUserId");
+                    b.HasIndex("BaseUserId")
+                        .IsUnique()
+                        .HasFilter("[BaseUserId] IS NOT NULL");
 
                     b.HasIndex("ClinicId");
 
-                    b.ToTable("ClientUsers");
+                    b.HasDiscriminator().HasValue("ClientUser");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClinicStaffUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.HasBaseType("Sanctuary.Data.Models.UserTables.BaseApplicationUser");
 
                     b.Property<string>("BaseUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(450)")
+                        .HasColumnName("ClinicStaffUser_BaseUserId");
 
                     b.Property<Guid>("ClinicId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("ClinicStaffUser_ClinicId");
 
                     b.Property<int>("TotalPaidDaysLeave")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("BaseUserId");
+                    b.HasIndex("BaseUserId")
+                        .IsUnique()
+                        .HasFilter("[ClinicStaffUser_BaseUserId] IS NOT NULL");
 
                     b.HasIndex("ClinicId");
 
-                    b.ToTable("ClinicStaffUsers");
+                    b.HasDiscriminator().HasValue("ClinicStaffUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1121,9 +1129,9 @@ namespace Sanctuary.Data.Migrations
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClientUser", b =>
                 {
                     b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", "BaseApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("BaseUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne("ClientUser")
+                        .HasForeignKey("Sanctuary.Data.Models.UserTables.ClientUser", "BaseUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
@@ -1140,9 +1148,9 @@ namespace Sanctuary.Data.Migrations
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClinicStaffUser", b =>
                 {
                     b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", "BaseApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("BaseUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne("ClinicStaffUser")
+                        .HasForeignKey("Sanctuary.Data.Models.UserTables.ClinicStaffUser", "BaseUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
@@ -1196,6 +1204,12 @@ namespace Sanctuary.Data.Migrations
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.BaseApplicationUser", b =>
                 {
                     b.Navigation("Claims");
+
+                    b.Navigation("ClientUser")
+                        .IsRequired();
+
+                    b.Navigation("ClinicStaffUser")
+                        .IsRequired();
 
                     b.Navigation("Logins");
 

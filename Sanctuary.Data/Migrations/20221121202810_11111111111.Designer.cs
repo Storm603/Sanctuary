@@ -12,8 +12,8 @@ using Sanctuary.Web.Data;
 namespace Sanctuary.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221114201033_2")]
-    partial class _2
+    [Migration("20221121202810_11111111111")]
+    partial class _11111111111
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -713,10 +713,6 @@ namespace Sanctuary.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -784,36 +780,51 @@ namespace Sanctuary.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("BaseApplicationUser");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClientUser", b =>
                 {
-                    b.HasBaseType("Sanctuary.Data.Models.UserTables.BaseApplicationUser");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BaseUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("ClinicId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.HasKey("Id");
+
+                    b.HasIndex("BaseUserId");
+
                     b.HasIndex("ClinicId");
 
-                    b.HasDiscriminator().HasValue("ClientUser");
+                    b.ToTable("ClientUsers");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClinicStaffUser", b =>
                 {
-                    b.HasBaseType("Sanctuary.Data.Models.UserTables.BaseApplicationUser");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BaseUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("ClinicId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ClinicStaffUser_ClinicId");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("TotalPaidDaysLeave")
                         .HasColumnType("int");
 
+                    b.HasKey("Id");
+
+                    b.HasIndex("BaseUserId");
+
                     b.HasIndex("ClinicId");
 
-                    b.HasDiscriminator().HasValue("ClinicStaffUser");
+                    b.ToTable("ClinicStaffUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1111,22 +1122,38 @@ namespace Sanctuary.Data.Migrations
 
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClientUser", b =>
                 {
+                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", "BaseApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("BaseUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
                         .WithMany("Users")
                         .HasForeignKey("ClinicId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.Navigation("BaseApplicationUser");
+
                     b.Navigation("Clinic");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClinicStaffUser", b =>
                 {
+                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", "BaseApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("BaseUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
                         .WithMany("Doctor")
                         .HasForeignKey("ClinicId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("BaseApplicationUser");
 
                     b.Navigation("Clinic");
                 });
