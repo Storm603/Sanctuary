@@ -35,6 +35,7 @@ namespace Sanctuary.Data.Models.PetTables
         [MaxLength(200)]
         public string? Description { get; set; }
 
+        public string ImageUrl { get; set; }
 
         public List<Allergies> Allergies = new List<Allergies>();
 
