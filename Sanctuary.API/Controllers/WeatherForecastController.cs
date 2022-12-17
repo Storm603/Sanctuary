@@ -8,6 +8,7 @@ namespace Sanctuary.API.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        [AutoValidateAntiforgeryToken]
         [HttpGet]
         [Route("/GetWeatherData")]
         public async Task<JsonResult> OpenWeatherMapData()
@@ -37,10 +38,25 @@ namespace Sanctuary.API.Controllers
             JObject obj = JObject.Parse(body);
 
             JToken results = obj["list"];
-            HomePageWeatherForecastDTO dto = new HomePageWeatherForecastDTO()
+            List<HomePageWeatherForecastDTO> dto = new List<HomePageWeatherForecastDTO>();
+
+            foreach (JToken jtoken in results)
             {
-                Main = new CommonDetails() { }
-            };
+                var child = jtoken.Children();
+
+                dto.Add(new HomePageWeatherForecastDTO()
+                {
+                    Main = new MainDetails()
+                    {
+                        Temperature = (double)jtoken[0],
+                        TemperatureFeelsLike = (double)jtoken[1],
+                        TemperatureMinimum = (double)jtoken[2],
+                        TemperatureMaximum = (double)jtoken[3],
+                        Pressure = (double)jtoken[4],
+                        Humidity = (double)jtoken[7]
+                    }
+                });
+            }
 
             return new JsonResult(body);
 

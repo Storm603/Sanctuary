@@ -671,7 +671,6 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("Microchip")
@@ -728,7 +727,6 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")

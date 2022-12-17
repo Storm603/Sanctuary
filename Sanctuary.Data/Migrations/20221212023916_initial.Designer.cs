@@ -12,8 +12,8 @@ using Sanctuary.Web.Data;
 namespace Sanctuary.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221129222919_1111111")]
-    partial class _1111111
+    [Migration("20221212023916_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -672,6 +672,9 @@ namespace Sanctuary.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool?>("Microchip")
                         .HasColumnType("bit");
 
@@ -724,6 +727,9 @@ namespace Sanctuary.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

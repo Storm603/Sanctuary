@@ -1,12 +1,17 @@
 ﻿using System.Security.Principal;
+using System.Text.Json.Serialization;
 
 namespace Sanctuary.Web.Views.ViewModels.APIViewModels
 {
     public class HomePageWeatherForecastDTO
     {
-        public CommonDetails Main { get; set; }
-        public Weather Weather { get; set; }
+        [JsonPropertyName("list")]
+        public MainDetails Main { get; set; }
 
+        [JsonPropertyName("weather")] 
+        public List<Weather> Weather = new List<Weather>();
+
+        [JsonPropertyName("wind")]
         public Wind Wind { get; set; }
     }
 }

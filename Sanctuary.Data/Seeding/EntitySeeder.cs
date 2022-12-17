@@ -26,6 +26,7 @@ namespace Sanctuary.Data.Seeding
                 return;
             }
 
+
             CreateClinics(context);
 
             CreateBreeds(context);
@@ -35,6 +36,26 @@ namespace Sanctuary.Data.Seeding
             CreateAddressesAndBindThemToClinicsAndUsers(context);
 
             CreatePetsAndBindThemToClientUsers(context);
+
+            SeedRoles(context, serviceProvider);
+
+        }
+
+        private static async void SeedRoles(ApplicationDbContext context, IServiceProvider provder)
+        {
+            var roleManager = provder.GetRequiredService<RoleManager<IdentityRole>>();
+            
+             roleManager.CreateAsync(new IdentityRole("Dentist")).GetAwaiter();
+             roleManager.CreateAsync(new IdentityRole("Dermatologist")).GetAwaiter();
+             roleManager.CreateAsync(new IdentityRole("Emergency and Critical Care Specialist")).GetAwaiter();
+             roleManager.CreateAsync(new IdentityRole("Ophthalmologist")).GetAwaiter();
+             roleManager.CreateAsync(new IdentityRole("Dentist")).GetAwaiter();
+             roleManager.CreateAsync(new IdentityRole("Surgery")).GetAwaiter();
+             roleManager.CreateAsync(new IdentityRole("Toxicologist")).GetAwaiter();
+             roleManager.CreateAsync(new IdentityRole("Behaviorist")).GetAwaiter();
+             roleManager.CreateAsync(new IdentityRole("Common Veterinary")).GetAwaiter();
+
+             await context.SaveChangesAsync();
         }
 
         private static void CreateBreeds(ApplicationDbContext context)
@@ -48,7 +69,7 @@ namespace Sanctuary.Data.Seeding
             }, new Breed()
             {
                 Name = "Cat"
-            },new Breed()
+            }, new Breed()
             {
                 Name = "Hamster"
             });
@@ -267,7 +288,7 @@ namespace Sanctuary.Data.Seeding
             {
                 AddressId = 6,
                 UserId = "bbd03955-6fa8-4992-a4f2-323eba8ce492"
-            },new MT_User_Addresses()
+            }, new MT_User_Addresses()
             {
                 AddressId = 7,
                 UserId = "44ef7ffb-e7fa-44d1-9140-743258f2e15f"

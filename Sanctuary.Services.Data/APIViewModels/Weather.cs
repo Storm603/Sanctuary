@@ -1,10 +1,19 @@
-﻿namespace Sanctuary.Web.Views.ViewModels.APIViewModels
+﻿using System.Text.Json.Serialization;
+
+namespace Sanctuary.Web.Views.ViewModels.APIViewModels
 {
     public class Weather
     {
-        public int Id { get; set; }
-        public string Main { get; set; }
-        public string Description { get; set; }
-        public string Icon { get; set; }
+        [JsonPropertyName("id")]
+        public int WeatherId { get; set; }
+
+        [JsonPropertyName("main")]
+        public string? MainWeatherDescription { get; set; }
+
+        [JsonPropertyName("description")]
+        public string? WeatherDescription{ get; set; }
+
+        [JsonPropertyName("icon")]
+        public string? WeatherIcon { get; set; }
     }
 }

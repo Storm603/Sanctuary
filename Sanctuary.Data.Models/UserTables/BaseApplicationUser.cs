@@ -37,7 +37,7 @@ namespace Sanctuary.Data.Models.UserTables
         public bool IsDeleted { get; set; }
         public DateTime? DeletedOn { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         //public ClientUser ClientUser { get; set; }
         //public ClinicStaffUser ClinicStaffUser { get; set; }
 

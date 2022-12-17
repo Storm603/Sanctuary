@@ -9,7 +9,7 @@ namespace Sanctuary.Web.Controllers
 {
     public class HomeController : Controller
     {
-
+        public RoleManager<IdentityRole> rolemanager { get; set; }
         private readonly ILogger<HomeController> _logger;
         private readonly IWeatherAPI widget;
 
