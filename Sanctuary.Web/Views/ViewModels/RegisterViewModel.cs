@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
+using Sanctuary.Web.CustomValidationAttributes;
 
 namespace Sanctuary.Web.Views.ViewModels
 {
@@ -23,5 +24,8 @@ namespace Sanctuary.Web.Views.ViewModels
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         public string? ConfirmPassword { get; set; }
+
+        [CheckBoxRequired(ErrorMessage = "Please agree with the Terms and Conditions before proceeding.")]
+        public bool TermsConditions { get; set; }
     }
 }

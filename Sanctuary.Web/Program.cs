@@ -36,15 +36,15 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 var app = builder.Build();
 
-using (var serviceScope = app.Services.CreateScope())
-{
-    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+//using (var serviceScope = app.Services.CreateScope())
+//{
+//    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-    dbContext.Database.EnsureDeleted();
-    dbContext.Database.Migrate();
+//    dbContext.Database.EnsureDeleted();
+//    dbContext.Database.Migrate();
 
-    EntitySeeder.SeedEntities(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-}
+//    EntitySeeder.SeedEntities(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+//}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

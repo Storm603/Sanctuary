@@ -37,26 +37,8 @@ namespace Sanctuary.Data.Seeding
 
             CreatePetsAndBindThemToClientUsers(context);
 
-            SeedRoles(context, serviceProvider);
-
         }
 
-        private static async void SeedRoles(ApplicationDbContext context, IServiceProvider provder)
-        {
-            var roleManager = provder.GetRequiredService<RoleManager<IdentityRole>>();
-            
-             roleManager.CreateAsync(new IdentityRole("Dentist")).GetAwaiter();
-             roleManager.CreateAsync(new IdentityRole("Dermatologist")).GetAwaiter();
-             roleManager.CreateAsync(new IdentityRole("Emergency and Critical Care Specialist")).GetAwaiter();
-             roleManager.CreateAsync(new IdentityRole("Ophthalmologist")).GetAwaiter();
-             roleManager.CreateAsync(new IdentityRole("Dentist")).GetAwaiter();
-             roleManager.CreateAsync(new IdentityRole("Surgery")).GetAwaiter();
-             roleManager.CreateAsync(new IdentityRole("Toxicologist")).GetAwaiter();
-             roleManager.CreateAsync(new IdentityRole("Behaviorist")).GetAwaiter();
-             roleManager.CreateAsync(new IdentityRole("Common Veterinary")).GetAwaiter();
-
-             await context.SaveChangesAsync();
-        }
 
         private static void CreateBreeds(ApplicationDbContext context)
         {
