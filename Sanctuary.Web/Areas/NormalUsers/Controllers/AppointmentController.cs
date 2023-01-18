@@ -30,13 +30,13 @@ namespace Sanctuary.Web.Areas.NormalUsers.Controllers
         [HttpGet]
         public IActionResult Appointment()
         {
-            return View("/Areas/NormalUsers/Views/Appointment/AppointmentChooseTown.cshtml", new SelectList(AddressService.RetrieveTownsWithCountriesWhereClinicsAreEstablished()));
+            return View("/Areas/NormalUsers/Views/Appointment/AppointmentSelectTown.cshtml", new SelectList(AddressService.RetrieveTownsWithCountriesWhereClinicsAreEstablished()));
         }
 
         [HttpPost]
-        public IActionResult Appointment(string zipCode)
+        public IActionResult Appointment(string zipCodeTextField)
         {
-            int code = int.Parse(zipCode);
+            int code = int.Parse(zipCodeTextField);
             return View("/Areas/NormalUsers/Views/Appointment/AppointmentFinalDetails.cshtml");
         }
     }

@@ -1,16 +1,27 @@
-﻿var zipCodeInputField = document.querySelector("#zipCodeInput");
-const variable = document.querySelector("#dropdownItems");
+﻿//var zipCodeTextField = document.querySelector("#zipCodeTextField");
+//var dropdownItems = document.querySelector("#zipCodeDropdown");
 
-zipCodeInputField.addEventListener("change", () => {
+var number = document.getElementById("hi").innerHTML.length;
 
-    if (/*!variable.classList.contains('show') && */zipCodeInputField.innerHTML.trim() != '' || zipCodeInputField.innerHTML.trim() != null) {
-        variable.classList.add('#show')
-        return
-    }
-    else {
-        variable.classList.remove('#show');
-        return
- }
-});
+const numbers = "hello ${number}";
 
-document.querySelector('#hi').style.backgroundColor = "red";
+window.alert(numbers);
+
+//var newh1 = document.createElement("h4");
+//var content = document.createTextNode("bye");
+
+//newh1.appendChild(content);
+
+//var parentDiv = document.getElementById("centeredleft");
+
+//parentDiv.appendChild(newh1);
+
+
+
+
+//zipCodeTextField.addEventListener("change", () => {
+
+
+//});
+
+document.getElementById('hi').style.border = 'hidden';
