@@ -19,7 +19,7 @@ namespace Sanctuary.Data.Models.LocationTables
         public string? PostalCode { get; set; }
         public string? Disctrict { get; set; }
         public string? StreetName { get; set; }
-        public float? lon { get; set; }
-        public float? lat { get; set; }
+        public double? lon { get; set; }
+        public double? lat { get; set; }
     }
 }

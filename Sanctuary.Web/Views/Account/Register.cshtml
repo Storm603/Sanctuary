@@ -4,55 +4,65 @@
 <head>
     <link rel="stylesheet" href="~/css/RegisterPage.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
-
+    <style>
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }</style>
 </head>
 
 @{
     ViewData["Title"] = "Register";
 }
 
-<div class="content register-photo">
-    <div class="form-container">
-        <div class="image-holder"></div>
+<div class="container">
+    <div class="content register-photo align-content-center">
+        <div class="form-container">
+            <div class="image-holder"></div>
 
-        <form id="registerForm" method="post">
-            <h2 class="text-center"><strong>Create</strong> an account.</h2>
-            <hr/>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="@Model.FirstName" class="form-control" autocomplete="username" aria-required="true"/>
-                <label asp-for="@Model.FirstName"></label>
-                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="@Model.LastName" class="form-control" autocomplete="username" aria-required="true"/>
-                <label asp-for="@Model.LastName"></label>
-                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="@Model.Email" class="form-control" autocomplete="username" aria-required="true"/>
-                <label asp-for="@Model.Email"></label>
-                <span asp-validation-for="@Model.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="@Model.Password" class="form-control" autocomplete="new-password" aria-required="true"/>
-                <label asp-for="@Model.Password"></label>
-                <span asp-validation-for="@Model.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="@Model.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true"/>
-                <label asp-for="@Model.ConfirmPassword"></label>
-                <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="@Model.TermsConditions" type="checkbox" aria-required="true" />
-                <label asp-for="@Model.TermsConditions">I accept the terms and conditions.</label>
-                <span asp-validation-for="@Model.TermsConditions" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
+            <form id="registerForm" method="post">
+                <h2 class="text-center"><strong>Create</strong> an account.</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating">
+                    <input asp-for="@Model.FirstName" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="@Model.FirstName"></label>
+                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="@Model.LastName" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="@Model.LastName"></label>
+                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="@Model.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="@Model.Email"></label>
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="@Model.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="@Model.Password"></label>
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="@Model.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="@Model.ConfirmPassword"></label>
+                    <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-floating">
+                    <input asp-for="@Model.TermsConditions" type="checkbox" aria-required="true" />
+                    <label asp-for="@Model.TermsConditions">I accept the terms and conditions.</label>
+                    <span asp-validation-for="@Model.TermsConditions" class="text-danger"></span>
+                </div>
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            </form>
+        </div>
     </div>
 </div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

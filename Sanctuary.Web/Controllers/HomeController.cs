@@ -11,9 +11,9 @@ namespace Sanctuary.Web.Controllers
     {
         public RoleManager<IdentityRole> rolemanager { get; set; }
         private readonly ILogger<HomeController> _logger;
-        private readonly IWeatherAPI widget;
+        private readonly IWeatherApi widget;
 
-        public HomeController(ILogger<HomeController> logger, IWeatherAPI widget)
+        public HomeController(ILogger<HomeController> logger, IWeatherApi widget)
         {
             _logger = logger;
             this.widget = widget;

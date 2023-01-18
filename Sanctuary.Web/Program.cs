@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Sanctuary.Data.Models.LocationTables;
 using Sanctuary.Data.Models.UserTables;
 using Sanctuary.Data.Seeding;
 using Sanctuary.Services;
@@ -17,7 +18,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddScoped<IWeatherAPI, WeatherAPI>();
+builder.Services.AddScoped<IWeatherApi, WeatherAPI>();
+builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IGeocodingApi, GeocodingApi>();
 
 builder.Services.AddDefaultIdentity<BaseApplicationUser>(options =>
     {
@@ -64,6 +67,11 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+app.MapControllerRoute(
+    name: "MyArea",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

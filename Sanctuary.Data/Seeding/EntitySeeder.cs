@@ -65,6 +65,7 @@ namespace Sanctuary.Data.Seeding
                 new Clinic()
                 {
                     Id = new Guid("0545129a-bdb9-4c8d-885e-2d9844e57f4a"),
+                    HospitalizedPetCagedNumber = 20,
                     ClinicName = "SanctuaryZdravetc",
                     CreatedOn = DateTime.UtcNow,
                     IsDeleted = false,
@@ -72,6 +73,7 @@ namespace Sanctuary.Data.Seeding
                 new Clinic()
                 {
                     Id = new Guid("9757a7df-dbf4-403d-8d84-98440fb48393"),
+                    HospitalizedPetCagedNumber = 20,
                     ClinicName = "SanctuaryRodina",
                     CreatedOn = DateTime.UtcNow,
                     IsDeleted = false,
@@ -79,10 +81,27 @@ namespace Sanctuary.Data.Seeding
                 new Clinic()
                 {
                     Id = new Guid("41adba76-20a4-4b2f-9c0a-edf8346b8f80"),
+                    HospitalizedPetCagedNumber = 20,
                     ClinicName = "SanctuaryDrujba",
                     CreatedOn = DateTime.UtcNow,
                     IsDeleted = false,
-                });
+                },
+            new Clinic()
+            {
+                Id = new Guid("c370d263-f095-4888-9f0e-5a2fdd49b8f3"),
+                HospitalizedPetCagedNumber = 20,
+                ClinicName = "SofiaCentral",
+                CreatedOn = DateTime.UtcNow,
+                IsDeleted = false,
+            },
+            new Clinic()
+            {
+                Id = new Guid("092ab3fa-0088-491f-82a8-8cd7a65d408e"),
+                HospitalizedPetCagedNumber = 20,
+                ClinicName = "BurgasCentral",
+                CreatedOn = DateTime.UtcNow,
+                IsDeleted = false,
+            });
             context.SaveChanges();
 
         }
@@ -132,6 +151,16 @@ namespace Sanctuary.Data.Seeding
                     Email = "Ivancho@abv.bg",
                     PhoneNumber = "7098324234375"
                 }
+                ,
+                new BaseApplicationUser()
+                {
+                    Id = "e181f671-6d99-4bf3-ad18-dc3ce49fe848",
+                    FirstName = "tes",
+                    LastName = "tes",
+                    UserName = "tes@abv.bg",
+                    Email = "tes@abv.bg",
+                    PhoneNumber = "7098324234375"
+                }
             };
 
 
@@ -154,6 +183,12 @@ namespace Sanctuary.Data.Seeding
                     Id = "c6482797-412d-451d-aab9-cf3d1ac39a39",
                     BaseUserId = "44ef7ffb-e7fa-44d1-9140-743258f2e15f",
                     ClinicId = Guid.Parse("0545129a-bdb9-4c8d-885e-2d9844e57f4a")
+                },
+                new ClientUser()
+                {
+                    Id = "2567371c-82ef-45ad-a9be-616a2b3252fe",
+                    BaseUserId = "e181f671-6d99-4bf3-ad18-dc3ce49fe848",
+                    ClinicId = Guid.Parse("c370d263-f095-4888-9f0e-5a2fdd49b8f3")
                 });
 
             var clientUserListForSeeding = new List<ClinicStaffUser>()
@@ -182,6 +217,14 @@ namespace Sanctuary.Data.Seeding
 
             context.SaveChanges();
 
+            Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(users[0], "User");
+            newUserRole.Wait();
+            Task<IdentityResult> newUserRole1 = userManager.AddToRoleAsync(users[1], "User");
+            newUserRole1.Wait();
+            Task<IdentityResult> newUserRole2 = userManager.AddToRoleAsync(users[2], "Common Veterinary");
+            newUserRole2.Wait();
+            Task<IdentityResult> newUserRole3 = userManager.AddToRoleAsync(users[3], "Common Veterinary");
+            newUserRole3.Wait();
         }
 
         private static void CreateAddressesAndBindThemToClinicsAndUsers(ApplicationDbContext context)
@@ -242,6 +285,30 @@ namespace Sanctuary.Data.Seeding
                 StreetName = "David",
                 lon = (float?)43.840196,
                 lat = (float?)25.952998
+            }, new Address()
+            {
+                Country = "Bulgaria",
+                Town = "Sofia",
+                PostalCode = "1000",
+                StreetName = "Knyaz Boris I",
+                lon = (float?)42.6945152,
+                lat = (float?)23.3182411
+            }, new Address()
+            {
+                Country = "Bulgaria",
+                Town = "Burgas",
+                PostalCode = "8000",
+                StreetName = "Skopie",
+                lon = (float?)42.49863,
+                lat = (float?)27.4693336
+            }, new Address()
+            {
+                Country = "Bulgaria",
+                Town = "Sofia",
+                PostalCode = "8000",
+                StreetName = "Vasil Levski",
+                lon = (float?)42.713445,
+                lat = (float?)23.306986
             });
 
             context.MtClinicAddresses.AddRange(new MT_Clinic_Addresses()
@@ -256,7 +323,18 @@ namespace Sanctuary.Data.Seeding
             {
                 AddressId = 3,
                 ClinicId = Guid.Parse("41adba76-20a4-4b2f-9c0a-edf8346b8f80"),
-            });
+            }
+                , new MT_Clinic_Addresses()
+                {
+                    AddressId = 8,
+                    ClinicId = Guid.Parse("c370d263-f095-4888-9f0e-5a2fdd49b8f3"),
+                }, new MT_Clinic_Addresses()
+                {
+                    AddressId = 9,
+                    ClinicId = Guid.Parse("092ab3fa-0088-491f-82a8-8cd7a65d408e"),
+                });
+
+            context.SaveChanges();
 
             context.MtUserAddresses.AddRange(new MT_User_Addresses()
             {
@@ -274,6 +352,10 @@ namespace Sanctuary.Data.Seeding
             {
                 AddressId = 7,
                 UserId = "44ef7ffb-e7fa-44d1-9140-743258f2e15f"
+            }, new MT_User_Addresses()
+            {
+                AddressId = 9,
+                UserId = "e181f671-6d99-4bf3-ad18-dc3ce49fe848"
             });
 
             context.SaveChanges();
@@ -284,7 +366,7 @@ namespace Sanctuary.Data.Seeding
         {
             List<Pet> listOfPetsToBeSeeded = new List<Pet>()
             {
-                new Pet
+                new Pet()
                 {
                     Id = Guid.Parse("59f3a075-c1c7-4e84-9d71-a76b39fcb2fd"),
                     Name = "Djonko",

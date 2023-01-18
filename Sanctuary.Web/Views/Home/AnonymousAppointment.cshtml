@@ -1,0 +1,48 @@
+﻿
+
+<div class="container-fluid pb-3 flex-grow-1 d-flex flex-column flex-sm-row overflow-auto">
+    <div class="row flex-grow-0">
+        <aside class="col-sm-3  flex-shrink-1 flex-grow-0 sticky-top pb-sm-0 pb-3" style="width: 280px;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark align-content-start    bg-light border rounded-3 p-1 h-100 sticky-top">
+                <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                    <span class="fs-4">My Account</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-white">
+                            <svg class=" me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                            Appointments
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <svg class=" me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                            Change account details
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <svg class=" me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                            Add/Remove pets from your account
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white">
+                            <svg class=" me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                            Delete account
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+            </div>
+        </aside>
+        <main class="col overflow-hidden text-wrap h-100 w-100">
+            <div class="bg-light border rounded-3 text-wrap text-break p-3 h-100 w-100">
+                @RenderBody()
+
+            </div>
+        </main>
+    </div>
+</div>

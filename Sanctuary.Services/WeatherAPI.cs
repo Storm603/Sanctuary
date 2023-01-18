@@ -6,7 +6,7 @@ using Sanctuary.Web.Views.ViewModels.APIViewModels;
 
 namespace Sanctuary.Services
 {
-    public class WeatherAPI : IWeatherAPI
+    public class WeatherAPI : IWeatherApi
     {
         public async Task<List<HomePageWeatherForecastDTO>> HomePageWeatherDataRetrieval()
         {

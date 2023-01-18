@@ -9,15 +9,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Sanctuary.Data.Models.UserTables;
 
 namespace Sanctuary.Web.Areas.Identity.Pages.Account
 {
     public class LogoutModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly ILogger<LogoutModel> _logger;
+        private readonly SignInManager<BaseApplicationUser> _signInManager;
+        private readonly ILogger<BaseApplicationUser> _logger;
 
-        public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(SignInManager<BaseApplicationUser> signInManager, ILogger<BaseApplicationUser> logger)
         {
             _signInManager = signInManager;
             _logger = logger;

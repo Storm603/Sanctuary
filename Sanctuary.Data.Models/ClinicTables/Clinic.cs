@@ -23,6 +23,8 @@ namespace Sanctuary.Data.Models.ClinicTables
         [Required]
         public string ClinicName { get; set; }
 
+        [Required]
+        public int HospitalizedPetCagedNumber { get; set; }
 
         public MT_Clinic_Addresses Address { get; set; }
 

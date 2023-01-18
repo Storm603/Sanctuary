@@ -44,7 +44,6 @@ namespace Sanctuary.Web.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<IdentityRole>().HasData(
-                 new IdentityRole("Dentist"),
                  new IdentityRole("Dermatologist"),
                  new IdentityRole("Emergency and Critical Care Specialist"),
                  new IdentityRole("Ophthalmologist"),

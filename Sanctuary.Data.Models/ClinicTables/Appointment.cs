@@ -15,6 +15,9 @@ namespace Sanctuary.Data.Models.ClinicTables
         public Guid Id { get; set; }
 
         [Required]
+        public string AppointmentNumber { get; set; }
+
+        [Required]
         public string DoctorId { get; set; }
         [ForeignKey(nameof(DoctorId))]
         public ClinicStaffUser Doctor { get; set; }

@@ -17,7 +17,7 @@ namespace Sanctuary.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -51,74 +51,68 @@ namespace Sanctuary.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "903fd5c2-90e0-4292-9212-7fe6ff67a9e8",
-                            ConcurrencyStamp = "314d35b3-fbab-49f3-a26f-92903dd73c25",
-                            Name = "Dentist"
-                        },
-                        new
-                        {
-                            Id = "ffb4a152-4afc-42d1-9fe8-163a6398ed8f",
-                            ConcurrencyStamp = "6029695c-d346-46d0-8e02-800f98adedde",
+                            Id = "4f40ee04-39d4-4e0e-bbe6-b82fabce7928",
+                            ConcurrencyStamp = "d60dccdf-74d3-4006-8ba3-86e2ab3ff8d3",
                             Name = "Dermatologist"
                         },
                         new
                         {
-                            Id = "82d85271-4520-4df4-91a2-9529d1cc9e67",
-                            ConcurrencyStamp = "e3d37521-8bf7-4adb-a56c-0151ad4cfa5f",
+                            Id = "79e731ef-707d-48c8-818e-055f87a5453a",
+                            ConcurrencyStamp = "919f7cb7-c955-4ae9-95b3-83d6748e3a4b",
                             Name = "Emergency and Critical Care Specialist"
                         },
                         new
                         {
-                            Id = "1e5f232a-aa00-4ae6-9836-834f9a51c48d",
-                            ConcurrencyStamp = "5ed3c39e-ed12-40b8-a592-e4fc8e999664",
+                            Id = "dbe3c8a0-3b0b-4a5d-b24c-65557170ffcc",
+                            ConcurrencyStamp = "6688d71e-e8b3-487a-964d-4bc47d9b2b00",
                             Name = "Ophthalmologist"
                         },
                         new
                         {
-                            Id = "9d7d16f5-aed1-4791-8226-84c52afbfba5",
-                            ConcurrencyStamp = "ddef65c0-0e1f-46eb-8d26-eda2a279bce7",
+                            Id = "4f97e221-670b-4380-bf7a-122407878bfd",
+                            ConcurrencyStamp = "88f7cae2-9898-4042-957d-a6d78e4df98c",
                             Name = "Dentist"
                         },
                         new
                         {
-                            Id = "d2044d0e-dd24-4d5d-a23b-310aa2123a7b",
-                            ConcurrencyStamp = "3152967c-e011-42ba-a1dd-b8d750e2a089",
+                            Id = "ed13e7eb-8b01-4329-b1a5-adfa3ddf3a6b",
+                            ConcurrencyStamp = "84c3e505-e81d-47aa-b7f7-c0850cb8ed38",
                             Name = "Surgery"
                         },
                         new
                         {
-                            Id = "9f38c71c-b96f-4a48-9d3a-d6ff79a47918",
-                            ConcurrencyStamp = "07fa1fbc-8e49-49a2-91f3-748a51f94e16",
+                            Id = "bddcb0b7-f72e-44d5-ba28-1744cd157059",
+                            ConcurrencyStamp = "0c9eb24a-3e90-4203-aa21-bb1981aad03c",
                             Name = "Toxicologist"
                         },
                         new
                         {
-                            Id = "c6b1600a-88a5-40ed-bc80-245f2b844c9b",
-                            ConcurrencyStamp = "402259cc-7196-41b4-a478-9eef6c08d272",
+                            Id = "9162824c-bac8-4e43-96f0-679ae08c9d91",
+                            ConcurrencyStamp = "b62ddc96-9cd6-4d4f-a04e-78886bebba45",
                             Name = "Behaviorist"
                         },
                         new
                         {
-                            Id = "d82a183e-cd82-49f3-9c41-1c64266edadd",
-                            ConcurrencyStamp = "0060ec0f-11b6-4c7c-9606-4137bb67fd6a",
+                            Id = "c5ea98d9-98f9-411f-8802-14a296d8d22e",
+                            ConcurrencyStamp = "5396cfa4-8200-4af5-a68f-8da3a5ce606b",
                             Name = "Common Veterinary"
                         },
                         new
                         {
-                            Id = "1a7336a9-6b24-4ac4-bd85-7c17f034b013",
-                            ConcurrencyStamp = "13d5c700-1032-4e04-8bce-5f769a496dd5",
+                            Id = "36ca2e4d-1197-40d3-8217-a23a4ce44e8c",
+                            ConcurrencyStamp = "e2a52f32-f09a-4a83-800d-b0d6827a639a",
                             Name = "Manager"
                         },
                         new
                         {
-                            Id = "726d15c4-11e2-4b6d-a31c-583f73234248",
-                            ConcurrencyStamp = "4b074c5d-0e07-4acf-8be4-d5a2cb66ed69",
+                            Id = "4c32e372-9e57-4705-b54c-ce066ed10e6c",
+                            ConcurrencyStamp = "b0efa159-e96c-4fe2-82dd-9d25ac24d023",
                             Name = "Administrator"
                         },
                         new
                         {
-                            Id = "8a661b1f-138b-4ece-965c-3ffa291cecf1",
-                            ConcurrencyStamp = "8f94de66-b847-4c08-bf0b-4607c3241774",
+                            Id = "7c76583f-56d6-41d9-8bb0-171019d76845",
+                            ConcurrencyStamp = "55ae3bf4-1ddb-46ac-b8b6-1a68431eaf17",
                             Name = "User"
                         });
                 });
@@ -272,6 +266,10 @@ namespace Sanctuary.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AppointmentNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ClientId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -315,6 +313,9 @@ namespace Sanctuary.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("HospitalizedPetCagedNumber")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -603,11 +604,11 @@ namespace Sanctuary.Data.Migrations
                     b.Property<string>("Town")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float?>("lat")
-                        .HasColumnType("real");
+                    b.Property<double?>("lat")
+                        .HasColumnType("float");
 
-                    b.Property<float?>("lon")
-                        .HasColumnType("real");
+                    b.Property<double?>("lon")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

@@ -1,89 +1,112 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Mvc.ModelBinding
 @model Sanctuary.Web.Views.ViewModels.LogInViewModel
 @{
     ViewData["Title"] = "Log in";
 }
 
-@*<h1>@ViewData["Title"]</h1>
-    <section>
-        <form id="account" method="post">
-            <h2>Use a local account to log in.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
-                <input asp-for="@Model.Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="@Model.Email" class="form-label"></label>
-                <span asp-validation-for="@Model.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input asp-for="@Model.Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                <label asp-for="@Model.Password" class="form-label"></label>
-                <span asp-validation-for="@Model.Password" class="text-danger"></span>
-            </div>
-            <div>
-                <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-            </div>
-        </form>
-    </section>*@
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
 
-<!-- Pills navs -->
-<!-- Pills content -->
-<div class="tab-content text-center" >
-    <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-        <form>
+    <script src="https://kit.fontawesome.com/adbbfab783.js" crossorigin="anonymous"></script>
+    <style>
+        .fa-facebook {
+            color: rgb(59, 91, 152)
+        }
+
+        .fa-google {
+            color: rgb(60, 286, 84)
+        }
+
+        .fa-twitter {
+            color: rgb(0, 72, 238)
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="text-center border rounded-3 text-wrap text-break p-3 h-100 w-100 d-flex">
+        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+
             <div class="text-center mb-3">
                 <p>Sign in with:</p>
-                <button type="button" class="btn btn-link mx-1">
-                    <img ></img>
+                <button type="button" class="btn btn-link mx-1 fa-2xl">
+                    <i class="fab fa-facebook"></i>
                 </button>
 
-                <button type="button" class="btn btn-link mx-1">
+                <button type="button" class="btn btn-link mx-1 fa-2xl">
                     <i class="fab fa-google"></i>
                 </button>
 
-                <button type="button" class="btn btn-link mx-1">
+                <button type="button" class="btn btn-link mx-1 fa-2xl">
                     <i class="fab fa-twitter"></i>
-                </button>
-
-                <button type="button" class="btn btn-link mx-1">
-                    <i class="fab fa-github"></i>
                 </button>
             </div>
 
             <p class="text-center">or:</p>
 
-            <div class="form-outline mb-4">
-                <input asp-for="@Model.Email" class="form-control" placeholder="E-Mail" autocomplete="Email" aria-required="true" />
-            </div>
+            @{
+                if (!ViewData.ModelState.IsValid)
+                {
+                    foreach (ModelStateEntry entry in ViewData.ModelState.Values)
+                    {
+                        foreach (ModelError entryError in entry.Errors)
+                        {
+                            <div class="text-danger">@entryError.ErrorMessage</div>
+                        }
+                    }
+                }
+            }
 
-            <div class="form-outline mb-4">
-                <input asp-for="@Model.Password" class="form-control" placeholder="Password" autocomplete="Password" aria-required="true" />
-            </div>
+            <form method="post">
+                <div class="mb-4">
+                    <input asp-for="@Model.Email" class="form-control" placeholder="E-Mail" autocomplete="Email" aria-required="true" />
+                </div>
 
-            <!-- 2 column grid layout -->
-            <div class="row mb-4">
-                <div class="col-md-6 d-flex justify-content-center">
-                    <!-- Checkbox -->
-                    <div class="form-check mb-3 mb-md-0">
-                        <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
-                        <label class="form-check-label" for="loginCheck"> Remember me </label>
+                <div class="mb-4">
+                    <input asp-for="@Model.Password" class="form-control" placeholder="Password" autocomplete="Password" aria-required="true" />
+                </div>
+
+
+                <!-- 2 column grid layout -->
+                <div class="row mb-4">
+                    <div class="col-md-6 d-flex justify-content-center">
+                        <!-- Checkbox -->
+                        <div class="form-check mb-3 mb-md-0">
+                            <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked />
+                            <label class="form-check-label" for="loginCheck"> Remember me </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 d-flex justify-content-center">
+                        <!-- Simple link -->
+                        <a href="#!">Forgot password?</a>
                     </div>
                 </div>
 
-                <div class="col-md-6 d-flex justify-content-center">
-                    <!-- Simple link -->
-                    <a href="#!">Forgot password?</a>
-                </div>
-            </div>
-
-            <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                <!-- Submit button -->
+                <button id="login-submit" type="submit" class="btn btn-primary mb-4">Sign in</button>
+            </form>
 
             <!-- Register buttons -->
             <div class="text-center">
                 <p>Not a member? <a href="#!">Register</a></p>
             </div>
-        </form>
+        </div>
     </div>
 </div>
-<!-- Pills content -->
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
