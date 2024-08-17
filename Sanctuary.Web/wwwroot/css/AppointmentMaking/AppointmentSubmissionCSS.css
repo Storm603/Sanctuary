@@ -1,0 +1,191 @@
+﻿table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+
+
+.active-calendar-day {
+    background-color: antiquewhite;
+    cursor: pointer;
+}
+
+.inactive-calendar-day {
+    background-color: dimgray;
+    pointer-events: none;
+}
+
+#vetInfo {
+    justify-content: space-evenly;
+}
+
+.calendarTableTag {
+    height: 400px;
+    width: 460px;
+}
+
+    .calendarTableTag th {
+        background-color: plum;
+    }
+
+#daySchedulePanel {
+    background-color: antiquewhite;
+}
+
+#daySchedulePopUp th {
+    background-color: navajowhite
+}
+
+#hourSchedule td {
+    width: 12px;
+    height: 40px;
+    cursor: pointer;
+}
+
+#daySchedulePopUp.deactivatePointer {
+    pointer-events: none;
+}
+
+#daySchedulePanel.blurredSchedule {
+    pointer-events: none;
+    filter: blur(4px);
+}
+
+td[lunch-break="12:00"] {
+    cursor: initial !important;
+}
+
+
+
+.appointmentGlowUp {
+    background-color: blue;
+}
+
+.appointmentGlowUpError {
+    background-color: red;
+}
+
+.appointmentGlowUpReserved {
+    background-color: dimgray;
+}
+
+.appointmentGlowUpSelected {
+    background-color: green;
+}
+
+.timePickerNormal {
+    filter: blur(0px);
+    color: black;
+}
+
+.timePickerError {
+    filter: blur(1px);
+    color: red;
+}
+
+#vetListWrapper {
+    padding: 5px;
+    border: solid black;
+    margin: 10px;
+    width: 210px;
+    height: 100%
+}
+
+#vetList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    #vetList li {
+        width: 100%;
+        height: 40px;
+        border: solid black;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+    }
+
+    #vetList li span {
+        background-color: yellow;
+        width: 100%;
+        pointer-events: none;
+    }
+
+    #vetList span:hover {
+        background-color: cyan;
+        color: rgba(255, 255, 255, 1);
+        box-shadow: 0 5px 15px rgba(145, 92, 182, .4);
+    }
+
+.text-element{
+    font-weight: bold;
+}
+
+.text-element.mandatory::after{
+    content: "*";
+    padding-left: 0.25rem;
+    color: #B30600;
+}
+
+.radioPetSelection{
+    height: 45px;
+    width: 80px;
+    margin-right: 20px;
+}
+
+/*Pet selection slider*/
+.petSelection {
+    border-style: solid;
+    border-block-color: black;
+    padding: 50px;
+    display: flex;
+    overflow: hidden;
+}
+
+/*Pet selection slider end*/
+
+ul#numberOfPets {
+    list-style-type: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#numberOfPets li {
+
+}
+
+/*Dot progression bar*/
+.progressor{
+    overflow:hidden;
+/*    position: fixed;
+*/    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items:center;
+    align-content: center;
+    justify-content: center;
+    /*z-index: 100000*/
+}
+
+.dot {
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    background-color: #fffcf4;
+    margin: calc(15px*2);
+}
+
+.leftButtonSliderAlignments {
+    margin-right: auto;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.rightButtonSliderAlignments {
+    margin-left: auto;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

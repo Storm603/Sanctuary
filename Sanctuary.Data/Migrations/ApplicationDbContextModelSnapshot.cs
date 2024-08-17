@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Sanctuary.Web.Data;
+using Sanctuary.Data;
 
 #nullable disable
 
@@ -17,105 +17,10 @@ namespace Sanctuary.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.12")
+                .HasAnnotation("ProductVersion", "6.0.23")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "4f40ee04-39d4-4e0e-bbe6-b82fabce7928",
-                            ConcurrencyStamp = "d60dccdf-74d3-4006-8ba3-86e2ab3ff8d3",
-                            Name = "Dermatologist"
-                        },
-                        new
-                        {
-                            Id = "79e731ef-707d-48c8-818e-055f87a5453a",
-                            ConcurrencyStamp = "919f7cb7-c955-4ae9-95b3-83d6748e3a4b",
-                            Name = "Emergency and Critical Care Specialist"
-                        },
-                        new
-                        {
-                            Id = "dbe3c8a0-3b0b-4a5d-b24c-65557170ffcc",
-                            ConcurrencyStamp = "6688d71e-e8b3-487a-964d-4bc47d9b2b00",
-                            Name = "Ophthalmologist"
-                        },
-                        new
-                        {
-                            Id = "4f97e221-670b-4380-bf7a-122407878bfd",
-                            ConcurrencyStamp = "88f7cae2-9898-4042-957d-a6d78e4df98c",
-                            Name = "Dentist"
-                        },
-                        new
-                        {
-                            Id = "ed13e7eb-8b01-4329-b1a5-adfa3ddf3a6b",
-                            ConcurrencyStamp = "84c3e505-e81d-47aa-b7f7-c0850cb8ed38",
-                            Name = "Surgery"
-                        },
-                        new
-                        {
-                            Id = "bddcb0b7-f72e-44d5-ba28-1744cd157059",
-                            ConcurrencyStamp = "0c9eb24a-3e90-4203-aa21-bb1981aad03c",
-                            Name = "Toxicologist"
-                        },
-                        new
-                        {
-                            Id = "9162824c-bac8-4e43-96f0-679ae08c9d91",
-                            ConcurrencyStamp = "b62ddc96-9cd6-4d4f-a04e-78886bebba45",
-                            Name = "Behaviorist"
-                        },
-                        new
-                        {
-                            Id = "c5ea98d9-98f9-411f-8802-14a296d8d22e",
-                            ConcurrencyStamp = "5396cfa4-8200-4af5-a68f-8da3a5ce606b",
-                            Name = "Common Veterinary"
-                        },
-                        new
-                        {
-                            Id = "36ca2e4d-1197-40d3-8217-a23a4ce44e8c",
-                            ConcurrencyStamp = "e2a52f32-f09a-4a83-800d-b0d6827a639a",
-                            Name = "Manager"
-                        },
-                        new
-                        {
-                            Id = "4c32e372-9e57-4705-b54c-ce066ed10e6c",
-                            ConcurrencyStamp = "b0efa159-e96c-4fe2-82dd-9d25ac24d023",
-                            Name = "Administrator"
-                        },
-                        new
-                        {
-                            Id = "7c76583f-56d6-41d9-8bb0-171019d76845",
-                            ConcurrencyStamp = "55ae3bf4-1ddb-46ac-b8b6-1a68431eaf17",
-                            Name = "User"
-                        });
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -150,9 +55,6 @@ namespace Sanctuary.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("BaseApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
 
@@ -164,8 +66,6 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BaseApplicationUserId");
 
                     b.HasIndex("UserId");
 
@@ -182,9 +82,6 @@ namespace Sanctuary.Data.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<string>("BaseApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
@@ -193,8 +90,6 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("BaseApplicationUserId");
 
                     b.HasIndex("UserId");
 
@@ -209,12 +104,7 @@ namespace Sanctuary.Data.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("BaseApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("BaseApplicationUserId");
 
                     b.HasIndex("RoleId");
 
@@ -274,9 +164,21 @@ namespace Sanctuary.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DoctorId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("PromoCode")
                         .HasColumnType("nvarchar(max)");
@@ -286,7 +188,10 @@ namespace Sanctuary.Data.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<DateTime>("TimeOfAppointment")
+                    b.Property<DateTime>("TimeOfAppointmentFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TimeOfAppointmentTo")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -294,6 +199,8 @@ namespace Sanctuary.Data.Migrations
                     b.HasIndex("ClientId");
 
                     b.HasIndex("DoctorId");
+
+                    b.HasIndex("IsDeleted");
 
                     b.ToTable("Appointments");
                 });
@@ -306,7 +213,7 @@ namespace Sanctuary.Data.Migrations
 
                     b.Property<string>("ClinicName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -325,6 +232,9 @@ namespace Sanctuary.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClinicName")
+                        .IsUnique();
+
                     b.ToTable("Clinics");
                 });
 
@@ -335,6 +245,9 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<Guid?>("AppointmentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ClinicId")
                         .HasColumnType("uniqueidentifier");
@@ -347,7 +260,8 @@ namespace Sanctuary.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -357,6 +271,8 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
 
                     b.HasIndex("ClinicId");
 
@@ -371,7 +287,7 @@ namespace Sanctuary.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AbscenceTypeId")
+                    b.Property<int>("AbsenceTypeId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Approved")
@@ -383,8 +299,8 @@ namespace Sanctuary.Data.Migrations
                     b.Property<Guid?>("ClinicId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Days")
-                        .HasColumnType("int");
+                    b.Property<short>("Days")
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -395,7 +311,6 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ReplacedById")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RequestedById")
@@ -404,7 +319,7 @@ namespace Sanctuary.Data.Migrations
 
                     b.HasKey("Guid");
 
-                    b.HasIndex("AbscenceTypeId");
+                    b.HasIndex("AbsenceTypeId");
 
                     b.HasIndex("ClinicId");
 
@@ -424,15 +339,24 @@ namespace Sanctuary.Data.Migrations
                     b.Property<Guid>("ClinicId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfDischarge")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateOfSubmission")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(400)
                         .HasColumnType("nvarchar(400)");
 
-                    b.Property<DateTime>("HospitalizationTime")
+                    b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("PetId")
+                    b.Property<Guid?>("PetId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -450,9 +374,6 @@ namespace Sanctuary.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FromId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("InvoiceDate")
                         .HasColumnType("datetime2");
 
@@ -461,18 +382,21 @@ namespace Sanctuary.Data.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("nvarchar(16)");
 
-                    b.Property<string>("ToId")
+                    b.Property<string>("ReceiverId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("SenderId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FromId");
+                    b.HasIndex("ReceiverId");
 
-                    b.HasIndex("ToId");
+                    b.HasIndex("SenderId");
 
                     b.ToTable("Invoices");
                 });
@@ -534,6 +458,18 @@ namespace Sanctuary.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("PetHotelId")
                         .HasColumnType("uniqueidentifier");
 
@@ -552,6 +488,8 @@ namespace Sanctuary.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IsDeleted");
+
                     b.HasIndex("PetHotelId");
 
                     b.HasIndex("PetId");
@@ -569,7 +507,6 @@ namespace Sanctuary.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PromoCode")
-                        .IsRequired()
                         .HasMaxLength(16)
                         .HasColumnType("nvarchar(16)");
 
@@ -580,7 +517,48 @@ namespace Sanctuary.Data.Migrations
                     b.ToTable("PromoCodes");
                 });
 
-            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.Address", b =>
+            modelBuilder.Entity("Sanctuary.Data.Models.Configurable.ApplicationRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Sanctuary.Data.Models.Configurable.Setting", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -588,21 +566,57 @@ namespace Sanctuary.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Settings");
+                });
+
+            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ClinicId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Disctrict")
+                    b.Property<string>("District")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PostalCode")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                    b.Property<Guid?>("PostalCodeInfoId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("StreetName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Town")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<double?>("lat")
                         .HasColumnType("float");
@@ -612,41 +626,38 @@ namespace Sanctuary.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClinicId")
+                        .IsUnique()
+                        .HasFilter("[ClinicId] IS NOT NULL");
+
+                    b.HasIndex("PostalCodeInfoId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.MT_Clinic_Addresses", b =>
+            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.PostalCodesCoordinates", b =>
                 {
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ClinicId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("AddressId", "ClinicId");
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("AddressId")
-                        .IsUnique();
+                    b.Property<double>("lat")
+                        .HasColumnType("float");
 
-                    b.HasIndex("ClinicId")
-                        .IsUnique();
+                    b.Property<double>("lng")
+                        .HasColumnType("float");
 
-                    b.ToTable("MtClinicAddresses");
-                });
+                    b.HasKey("Id");
 
-            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.MT_User_Addresses", b =>
-                {
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("AddressId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("MtUserAddresses");
+                    b.ToTable("PostalCodes");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.PetTables.Allergies", b =>
@@ -657,7 +668,7 @@ namespace Sanctuary.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<Guid>("PetId")
+                    b.Property<Guid?>("PetId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Severity")
@@ -702,7 +713,7 @@ namespace Sanctuary.Data.Migrations
                     b.Property<DateTime>("DateAndTimeOfVisitation")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("PetId")
+                    b.Property<Guid?>("PetId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ReasonOfVisitation")
@@ -723,6 +734,9 @@ namespace Sanctuary.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("AppointmentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("BreedId")
                         .HasColumnType("int");
 
@@ -730,7 +744,13 @@ namespace Sanctuary.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -745,11 +765,14 @@ namespace Sanctuary.Data.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("Microchip")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -764,11 +787,55 @@ namespace Sanctuary.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppointmentId");
+
                     b.HasIndex("BreedId");
 
                     b.HasIndex("ClientUserId");
 
+                    b.HasIndex("IsDeleted");
+
                     b.ToTable("Pets");
+                });
+
+            modelBuilder.Entity("Sanctuary.Data.Models.PicturesTables.ImageStorage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier ROWGUIDCOL UNIQUE");
+
+                    b.Property<Guid?>("ClinicId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsProfilePicture")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("PetId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("VARBINARY(MAX) FILESTREAM");
+
+                    b.Property<string>("PhotoName")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClinicId");
+
+                    b.HasIndex("PetId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.BaseApplicationUser", b =>
@@ -800,9 +867,6 @@ namespace Sanctuary.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -850,6 +914,8 @@ namespace Sanctuary.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IsDeleted");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -866,18 +932,19 @@ namespace Sanctuary.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("BaseUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<Guid>("ClinicId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("BaseUserId");
-
                     b.HasIndex("ClinicId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("ClientUsers");
                 });
@@ -887,9 +954,8 @@ namespace Sanctuary.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("BaseUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("CabinetNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("ClinicId")
                         .HasColumnType("uniqueidentifier");
@@ -897,21 +963,26 @@ namespace Sanctuary.Data.Migrations
                     b.Property<int>("TotalPaidDaysLeave")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("BaseUserId");
-
                     b.HasIndex("ClinicId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("ClinicStaffUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Sanctuary.Data.Models.Configurable.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -919,12 +990,8 @@ namespace Sanctuary.Data.Migrations
                 {
                     b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", null)
                         .WithMany("Claims")
-                        .HasForeignKey("BaseApplicationUserId");
-
-                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", null)
-                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -932,40 +999,32 @@ namespace Sanctuary.Data.Migrations
                 {
                     b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", null)
                         .WithMany("Logins")
-                        .HasForeignKey("BaseApplicationUserId");
-
-                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", null)
-                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("BaseApplicationUserId");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Sanctuary.Data.Models.Configurable.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", null)
-                        .WithMany()
+                        .WithMany("Roles")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", null)
-                        .WithMany()
+                        .WithMany("Tokens")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -974,13 +1033,13 @@ namespace Sanctuary.Data.Migrations
                     b.HasOne("Sanctuary.Data.Models.UserTables.ClientUser", "Client")
                         .WithMany("AppointmentList")
                         .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Sanctuary.Data.Models.UserTables.ClinicStaffUser", "Doctor")
                         .WithMany("Schedule")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Client");
@@ -990,10 +1049,14 @@ namespace Sanctuary.Data.Migrations
 
             modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.ClinicServices", b =>
                 {
+                    b.HasOne("Sanctuary.Data.Models.ClinicTables.Appointment", null)
+                        .WithMany("Services")
+                        .HasForeignKey("AppointmentId");
+
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
-                        .WithMany()
+                        .WithMany("Services")
                         .HasForeignKey("ClinicId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Invoice", null)
@@ -1005,10 +1068,10 @@ namespace Sanctuary.Data.Migrations
 
             modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.ClinicStaffLeave", b =>
                 {
-                    b.HasOne("Sanctuary.Data.Models.ClinicTables.AbsenceType", "AbscenceType")
+                    b.HasOne("Sanctuary.Data.Models.ClinicTables.AbsenceType", "AbsenceType")
                         .WithMany()
-                        .HasForeignKey("AbscenceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("AbsenceTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", null)
@@ -1017,17 +1080,15 @@ namespace Sanctuary.Data.Migrations
 
                     b.HasOne("Sanctuary.Data.Models.UserTables.ClinicStaffUser", "ReplacedBy")
                         .WithMany("ClinicStaffLeaveReplace")
-                        .HasForeignKey("ReplacedById")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("ReplacedById");
 
                     b.HasOne("Sanctuary.Data.Models.UserTables.ClinicStaffUser", "RequestedBy")
                         .WithMany("ClinicStaffLeaveRequest")
                         .HasForeignKey("RequestedById")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("AbscenceType");
+                    b.Navigation("AbsenceType");
 
                     b.Navigation("ReplacedBy");
 
@@ -1037,16 +1098,14 @@ namespace Sanctuary.Data.Migrations
             modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.HospitalizedPets", b =>
                 {
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
-                        .WithMany()
+                        .WithMany("HospitalizedPets")
                         .HasForeignKey("ClinicId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Sanctuary.Data.Models.PetTables.Pet", "Pet")
                         .WithMany()
-                        .HasForeignKey("PetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PetId");
 
                     b.Navigation("Clinic");
 
@@ -1055,21 +1114,21 @@ namespace Sanctuary.Data.Migrations
 
             modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.Invoice", b =>
                 {
-                    b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "From")
-                        .WithMany()
-                        .HasForeignKey("FromId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Sanctuary.Data.Models.UserTables.ClientUser", "Receiver")
+                        .WithMany("Invoices")
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Sanctuary.Data.Models.UserTables.ClientUser", "To")
-                        .WithMany()
-                        .HasForeignKey("ToId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Sender")
+                        .WithMany("Invoices")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("From");
+                    b.Navigation("Receiver");
 
-                    b.Navigation("To");
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.Medicine", b =>
@@ -1084,7 +1143,7 @@ namespace Sanctuary.Data.Migrations
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
                         .WithOne("Hotel")
                         .HasForeignKey("Sanctuary.Data.Models.ClinicTables.PetHotel", "ClinicId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Clinic");
@@ -1095,13 +1154,13 @@ namespace Sanctuary.Data.Migrations
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.PetHotel", "PetHotel")
                         .WithMany("Pet")
                         .HasForeignKey("PetHotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Sanctuary.Data.Models.PetTables.Pet", "Pet")
                         .WithMany()
                         .HasForeignKey("PetId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Pet");
@@ -1114,57 +1173,38 @@ namespace Sanctuary.Data.Migrations
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
                         .WithMany("PromoCodes")
                         .HasForeignKey("ClinicId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Clinic");
                 });
 
-            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.MT_Clinic_Addresses", b =>
+            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.Address", b =>
                 {
-                    b.HasOne("Sanctuary.Data.Models.LocationTables.Address", "Address")
-                        .WithOne()
-                        .HasForeignKey("Sanctuary.Data.Models.LocationTables.MT_Clinic_Addresses", "AddressId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
                         .WithOne("Address")
-                        .HasForeignKey("Sanctuary.Data.Models.LocationTables.MT_Clinic_Addresses", "ClinicId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("Sanctuary.Data.Models.LocationTables.Address", "ClinicId");
 
-                    b.Navigation("Address");
+                    b.HasOne("Sanctuary.Data.Models.LocationTables.PostalCodesCoordinates", "PostalCodeInfo")
+                        .WithMany()
+                        .HasForeignKey("PostalCodeInfoId");
+
+                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", "BaseUser")
+                        .WithOne("Address")
+                        .HasForeignKey("Sanctuary.Data.Models.LocationTables.Address", "UserId");
+
+                    b.Navigation("BaseUser");
 
                     b.Navigation("Clinic");
-                });
 
-            modelBuilder.Entity("Sanctuary.Data.Models.LocationTables.MT_User_Addresses", b =>
-                {
-                    b.HasOne("Sanctuary.Data.Models.LocationTables.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-
-                    b.Navigation("User");
+                    b.Navigation("PostalCodeInfo");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.PetTables.Allergies", b =>
                 {
                     b.HasOne("Sanctuary.Data.Models.PetTables.Pet", "Pet")
-                        .WithMany()
-                        .HasForeignKey("PetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Allergies")
+                        .HasForeignKey("PetId");
 
                     b.Navigation("Pet");
                 });
@@ -1173,25 +1213,27 @@ namespace Sanctuary.Data.Migrations
                 {
                     b.HasOne("Sanctuary.Data.Models.PetTables.Pet", "Pet")
                         .WithMany("MedicalLogs")
-                        .HasForeignKey("PetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PetId");
 
                     b.Navigation("Pet");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.PetTables.Pet", b =>
                 {
+                    b.HasOne("Sanctuary.Data.Models.ClinicTables.Appointment", null)
+                        .WithMany("Pets")
+                        .HasForeignKey("AppointmentId");
+
                     b.HasOne("Sanctuary.Data.Models.PetTables.Breed", "Breed")
                         .WithMany()
                         .HasForeignKey("BreedId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Sanctuary.Data.Models.UserTables.ClientUser", "ClientUser")
-                        .WithMany()
+                        .WithMany("PetOwnerships")
                         .HasForeignKey("ClientUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Breed");
@@ -1199,57 +1241,87 @@ namespace Sanctuary.Data.Migrations
                     b.Navigation("ClientUser");
                 });
 
+            modelBuilder.Entity("Sanctuary.Data.Models.PicturesTables.ImageStorage", b =>
+                {
+                    b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
+                        .WithMany("RelatedPictures")
+                        .HasForeignKey("ClinicId");
+
+                    b.HasOne("Sanctuary.Data.Models.PetTables.Pet", "Pet")
+                        .WithMany("RelatedPictures")
+                        .HasForeignKey("PetId");
+
+                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", "User")
+                        .WithMany("RelatedPictures")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Clinic");
+
+                    b.Navigation("Pet");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClientUser", b =>
                 {
-                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", "BaseApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("BaseUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
                         .WithMany("Users")
                         .HasForeignKey("ClinicId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("BaseApplicationUser");
+                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", "BaseUser")
+                        .WithOne("Client")
+                        .HasForeignKey("Sanctuary.Data.Models.UserTables.ClientUser", "UserId");
+
+                    b.Navigation("BaseUser");
 
                     b.Navigation("Clinic");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClinicStaffUser", b =>
                 {
-                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", "BaseApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("BaseUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Sanctuary.Data.Models.ClinicTables.Clinic", "Clinic")
-                        .WithMany("Doctor")
+                        .WithMany("Doctors")
                         .HasForeignKey("ClinicId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("BaseApplicationUser");
+                    b.HasOne("Sanctuary.Data.Models.UserTables.BaseApplicationUser", "BaseUser")
+                        .WithOne("Veterinary")
+                        .HasForeignKey("Sanctuary.Data.Models.UserTables.ClinicStaffUser", "UserId");
+
+                    b.Navigation("BaseUser");
 
                     b.Navigation("Clinic");
                 });
 
+            modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.Appointment", b =>
+                {
+                    b.Navigation("Pets");
+
+                    b.Navigation("Services");
+                });
+
             modelBuilder.Entity("Sanctuary.Data.Models.ClinicTables.Clinic", b =>
                 {
-                    b.Navigation("Address")
-                        .IsRequired();
+                    b.Navigation("Address");
 
                     b.Navigation("ClinicStaffLeaves");
 
-                    b.Navigation("Doctor");
+                    b.Navigation("Doctors");
 
-                    b.Navigation("Hotel")
-                        .IsRequired();
+                    b.Navigation("HospitalizedPets");
+
+                    b.Navigation("Hotel");
+
+                    b.Navigation("Invoices");
 
                     b.Navigation("PromoCodes");
+
+                    b.Navigation("RelatedPictures");
+
+                    b.Navigation("Services");
 
                     b.Navigation("Users");
                 });
@@ -1271,21 +1343,39 @@ namespace Sanctuary.Data.Migrations
 
             modelBuilder.Entity("Sanctuary.Data.Models.PetTables.Pet", b =>
                 {
+                    b.Navigation("Allergies");
+
                     b.Navigation("MedicalLogs");
+
+                    b.Navigation("RelatedPictures");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.BaseApplicationUser", b =>
                 {
+                    b.Navigation("Address");
+
                     b.Navigation("Claims");
+
+                    b.Navigation("Client");
 
                     b.Navigation("Logins");
 
+                    b.Navigation("RelatedPictures");
+
                     b.Navigation("Roles");
+
+                    b.Navigation("Tokens");
+
+                    b.Navigation("Veterinary");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClientUser", b =>
                 {
                     b.Navigation("AppointmentList");
+
+                    b.Navigation("Invoices");
+
+                    b.Navigation("PetOwnerships");
                 });
 
             modelBuilder.Entity("Sanctuary.Data.Models.UserTables.ClinicStaffUser", b =>

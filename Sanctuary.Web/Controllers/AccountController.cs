@@ -1,10 +1,8 @@
-﻿using System.Security;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Sanctuary.Data.Models.UserTables;
-using Sanctuary.Web.Data;
+using Sanctuary.Data;
 using Sanctuary.Web.Views.ViewModels;
 
 namespace Sanctuary.Web.Controllers
@@ -12,9 +10,9 @@ namespace Sanctuary.Web.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private UserManager<BaseApplicationUser> UserManager { get; set; }
-        private SignInManager<BaseApplicationUser> SignInManager { get; set; }
-        private ApplicationDbContext ApplicationDbContext { get; set; }
+        private UserManager<BaseApplicationUser> UserManager;
+        private SignInManager<BaseApplicationUser> SignInManager;
+        private ApplicationDbContext ApplicationDbContext;
 
         public AccountController(UserManager<BaseApplicationUser> userManager, SignInManager<BaseApplicationUser> signInManager, ApplicationDbContext applicationDbContext)
         {
@@ -41,10 +39,10 @@ namespace Sanctuary.Web.Controllers
 
             var user = new BaseApplicationUser()
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
+                FirstName = model.FirstName!,
+                LastName = model.LastName!,
                 Email = model.Email,
-                UserName = model.Email
+                UserName = model.Email,
             };
 
             var creationResult = await UserManager.CreateAsync(user, model.Password);
@@ -66,6 +64,10 @@ namespace Sanctuary.Web.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
+            if (User.Identity!.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 

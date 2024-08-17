@@ -1,42 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Sanctuary.Data.Common.Models;
+using Sanctuary.Data.Models.PetTables;
 using Sanctuary.Data.Models.UserTables;
 
 namespace Sanctuary.Data.Models.ClinicTables
 {
-    public class Appointment
+    public class Appointment : IAuditInfo, IDeletableEntity
     {
+        public Appointment()
+        {
+            Services = new List<ClinicServices>();
+            Pets = new List<Pet>();
+        }
         [Key]
         public Guid Id { get; set; }
 
         [Required]
-        public string AppointmentNumber { get; set; }
+        public string AppointmentNumber { get; set; } = null!;
 
         [Required]
-        public string DoctorId { get; set; }
         [ForeignKey(nameof(DoctorId))]
-        public ClinicStaffUser Doctor { get; set; }
+        public string DoctorId { get; set; } = null!;
+        public virtual ClinicStaffUser Doctor { get; set; } = null!;
+
 
         [Required]
-        public string ClientId { get; set; }
         [ForeignKey(nameof(ClientId))]
-        public ClientUser Client { get; set; }
+        public string ClientId { get; set; } = null!;
+        public virtual ClientUser Client { get; set; } = null!;
 
-        public List<ClinicServices> Services = new List<ClinicServices>();
+        public virtual List<Pet> Pets { get; set; } = null!;
 
+        public virtual List<ClinicServices> Services { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime TimeOfAppointment { get; set; }
+        public DateTime TimeOfAppointmentFrom { get; set; }
 
         [Required]
-        [StringLength(300,MinimumLength = 10)]
-        public string Reason { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime TimeOfAppointmentTo { get; set; }
+
+        [Required]
+        [StringLength(300, MinimumLength = 10)]
+        public string Reason { get; set; } = null!;
+
         public string? PromoCode { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedOn { get; set; }
     }
 }

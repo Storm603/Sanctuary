@@ -5,15 +5,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Sanctuary</title>
+    <title>@ViewData["Title"] Sanctuary</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <!-- <p class="moving-text">&#8226; New clinic opens soon in Rousse!   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     &#8226; Support our cause to keep nature clean!</p>-->
-        @if (User.Identity.IsAuthenticated)
+        @if (User.Identity!.IsAuthenticated)
         {
             <nav class=" navbar navbar-expand-sm  navbar-light bg-white border-bottom box-shadow justify-content-end">
                 <ul class="navbar-nav ">
@@ -21,11 +20,11 @@
                     <!-- Avatar -->
                     <li class="nav-item dropdown .dropdown-menu-end">
                         <a class=" nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="~/Pictures/NationalGeographic_2572187_square.png" class="rounded-circle" height="22" alt="Avatar" loading="lazy" />
+                            <img src="~/Pictures/NationalGeographic_2572187_square.png" class="rounded-circle" height="22" alt="Avatar" loading="lazy" asp-append-version="true" />
                         </a>
                         <ul class="dropdown dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                             <li>
-                                <a class="dropdown-item" asp-area="NormalUsers" asp-controller="MyAccount" asp-action="Index">My profile</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="MyAccount" asp-action="Index">My profile</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Settings</a>
@@ -42,8 +41,8 @@
 
         <nav class=" navbar navbar-expand-sm  navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" >
-                    <img src="~/Pictures/SanctuaryLogo.jpg" alt="" width="100" height="100"/>
+                <a class="navbar-brand">
+                    <img src="~/Pictures/SanctuaryLogo.jpg" alt="" width="100" height="100" asp-append-version="true" />
                 </a>
 
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sanctuary</a>
@@ -53,56 +52,53 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home Page</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home Page</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">News</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">News</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="NormalUsers" asp-controller="Appointment" asp-action="Appointment">Make an Appointment</a>
+                            <a class="nav-link text-dark" asp-area="NormalUsers" asp-controller="Appointment" asp-action="AppointmentSelectLocation">Make an Appointment</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">AddressServices</a>
+                            <a class="nav-link text-dark" asp-area="NormalUsers" asp-controller="Appointment" asp-action="AppointmentDetails">AddressServices</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">About us</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Contact Us</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Contact Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Career opportunities</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Career opportunities</a>
                         </li>
                     </ul>
                     @{
                         if (!User.Identity.IsAuthenticated)
                         {
-                            <partial name="_LoginPartial"/>
-                        }}
+                            <partial name="_LoginPartial" />
+                        }
+                    }
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted" id="footer">
+    <main role="main" style="height: 100vh">
+        @RenderBody()
+    </main>
+
+    <footer class="footer border-top text-muted">
         <div class="container">
-            &copy; 2022 - Sanctuary.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Sanctuary - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using Sanctuary.Web.Views.ViewModels.APIViewModels;
 
 namespace Sanctuary.API.Controllers
 {
@@ -8,7 +7,6 @@ namespace Sanctuary.API.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        [AutoValidateAntiforgeryToken]
         [HttpGet]
         [Route("/GetWeatherData")]
         public async Task<JsonResult> OpenWeatherMapData()
@@ -31,32 +29,32 @@ namespace Sanctuary.API.Controllers
             }
             catch (Exception e)
             {
-                return null;
+                throw new Exception(e.Message);
             }
 
 
-            JObject obj = JObject.Parse(body);
+            //JObject obj = JObject.Parse(body);
 
-            JToken results = obj["list"];
-            List<HomePageWeatherForecastDTO> dto = new List<HomePageWeatherForecastDTO>();
+            //JToken results = obj["list"];
+            //List<HomePageWeatherForecastDTO> dto = new List<HomePageWeatherForecastDTO>();
 
-            foreach (JToken jtoken in results)
-            {
-                var child = jtoken.Children();
+            //foreach (JToken jtoken in results)
+            //{
+            //    var child = jtoken.Children();
 
-                dto.Add(new HomePageWeatherForecastDTO()
-                {
-                    Main = new MainDetails()
-                    {
-                        Temperature = (double)jtoken[0],
-                        TemperatureFeelsLike = (double)jtoken[1],
-                        TemperatureMinimum = (double)jtoken[2],
-                        TemperatureMaximum = (double)jtoken[3],
-                        Pressure = (double)jtoken[4],
-                        Humidity = (double)jtoken[7]
-                    }
-                });
-            }
+            //    dto.Add(new HomePageWeatherForecastDTO()
+            //    {
+            //        Main = new MainDetails()
+            //        {
+            //            Temperature = (double)jtoken[0],
+            //            TemperatureFeelsLike = (double)jtoken[1],
+            //            TemperatureMinimum = (double)jtoken[2],
+            //            TemperatureMaximum = (double)jtoken[3],
+            //            Pressure = (double)jtoken[4],
+            //            Humidity = (double)jtoken[7]
+            //        }
+            //    });
+            //}
 
             return new JsonResult(body);
 

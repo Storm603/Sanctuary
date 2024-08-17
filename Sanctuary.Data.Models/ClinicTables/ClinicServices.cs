@@ -12,14 +12,16 @@ namespace Sanctuary.Data.Models.ClinicTables
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
-        public string Name { get; set; }
+        [MaxLength(40)]
+        public string Name { get; set; } = null!;
+
         [Required]
         public int ExecutionTime { get; set; }
 
-        // call by role in identity asp
         [Required]
-        public string SpecializedDoctor { get; set; }
+        public string SpecializedDoctor { get; set; } = null!;
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
@@ -27,6 +29,6 @@ namespace Sanctuary.Data.Models.ClinicTables
 
         public Guid ClinicId { get; set; }
         [ForeignKey(nameof(ClinicId))]
-        public Clinic? Clinic { get; set; }
+        public virtual Clinic? Clinic { get; set; }
     }
 }

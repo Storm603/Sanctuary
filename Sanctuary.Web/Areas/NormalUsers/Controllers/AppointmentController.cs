@@ -1,43 +1,70 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Sanctuary.Services;
+using Sanctuary.Common;
+using Sanctuary.Data.Models.UserTables;
 using Sanctuary.Services.Contracts;
+using Sanctuary.Web.ViewModels;
+using Sanctuary.Web.ViewModels.AppointmentCreationViewModels;
+using System;
+using System.Security.Claims;
 
 namespace Sanctuary.Web.Areas.NormalUsers.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = (ExistingIdentityRolesConstants.UserRoleName))]
     public class AppointmentController : Controller
     {
-        public AddressService AddressService { get; set; }
-        public GeocodingApi GeocodinService { get; set; }
-        public AppointmentController(IAddressService addressService, IGeocodingApi geocodingService)
+        public IImageService ImageService { get; set; }
+        public IUserService UserService { get; set; }
+        public UserManager<BaseApplicationUser> UserManager { get; set; }
+        public IDataProtector DataEnc { get; set; }
+        public IAppointmentService AppointmentService { get; set; }
+
+        public AppointmentController(IImageService injService, IUserService injUserService, UserManager<BaseApplicationUser> injUManager, IDataProtectionProvider injDataEnc, IAppointmentService injAppointmentService)
         {
-            AddressService = (AddressService)addressService;
-            GeocodinService = (GeocodingApi)geocodingService;
+            ImageService = injService;
+            UserService = injUserService;
+            UserManager = injUManager;
+            AppointmentService = injAppointmentService;
+            DataEnc = injDataEnc.CreateProtector("Areas.Normalusers.Appointment");
         }
 
         [HttpGet]
-        public string GetLatitudeAndLongtituteInfo(string countryAndTownNames)
+        [Area("NormalUsers")]
+        public IActionResult AppointmentSelectLocation()
         {
-            var result = GeocodinService.GetLatitudeAndLongitudeByName(countryAndTownNames);
-            var serializer = new Newtonsoft.Json.JsonSerializer();
-            //serializer.Serialize((Location));
-            //return  serializer.ser
-            return String.Empty;
+            return View("/Areas/NormalUsers/Views/Appointment/AppointmentBranchSelection.cshtml");
         }
 
         [HttpGet]
-        public IActionResult Appointment()
+        [Area("NormalUsers")]
+        public IActionResult AppointmentDetails([FromQuery]string clinicName)
         {
-            return View("/Areas/NormalUsers/Views/Appointment/AppointmentSelectTown.cshtml", new SelectList(AddressService.RetrieveTownsWithCountriesWhereClinicsAreEstablished()));
+            ViewData["ClinicName"] = clinicName;
+
+            return View("/Areas/NormalUsers/Views/Appointment/AppointmentGeneralChoice.cshtml");
         }
 
         [HttpPost]
-        public IActionResult Appointment(string zipCodeTextField)
+        [Area("NormalUsers")]
+        public async Task<IActionResult> AppointmentDetails(AppointmentGeneralInformationViewModel model)
         {
-            int code = int.Parse(zipCodeTextField);
-            return View("/Areas/NormalUsers/Views/Appointment/AppointmentFinalDetails.cshtml");
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            var completeModel = await AppointmentService.AppointmentViewModelRenderingForRegisteredUser(userId, model);
+            
+            return View("/Areas/NormalUsers/Views/Appointment/AppointmentSubmission.cshtml", completeModel);
+        }
+
+        [HttpPost]
+        [Area("NormalUsers")]
+        public async Task<IActionResult> AppointmentSubmission([FromForm]SubmittedAppointmentViewModel model)
+        {
+            var time = DateTime.Now.ToUniversalTime;
+            ;
+            TimeOnly times = new TimeOnly();
+            return View("/Areas/NormalUsers/Views/Appointment/apptest.cshtml");
         }
     }
 }

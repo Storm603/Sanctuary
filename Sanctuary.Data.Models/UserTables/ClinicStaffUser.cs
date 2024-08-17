@@ -1,11 +1,6 @@
 ﻿using Sanctuary.Data.Models.ClinicTables;
-using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sanctuary.Data.Models.LocationTables;
 
 namespace Sanctuary.Data.Models.UserTables
 {
@@ -14,27 +9,32 @@ namespace Sanctuary.Data.Models.UserTables
         public ClinicStaffUser()
         {
             Id = Guid.NewGuid().ToString();
+            Schedule = new List<Appointment>();
+            ClinicStaffLeaveRequest = new List<ClinicStaffLeave>();
+            ClinicStaffLeaveReplace = new List<ClinicStaffLeave>();
         }
         public string Id { get; set; }
 
+        public string? CabinetNumber { get; set; }
+        public virtual List<Appointment> Schedule { get; set; }
 
-        public List<Appointment> Schedule = new List<Appointment>();
-
+        [Required]
+        [Range(1, 35)]
         public int TotalPaidDaysLeave { get; set; }
 
         public Guid ClinicId { get; set; }
-        [ForeignKey(nameof(ClinicId))]
-        public Clinic Clinic { get; set; }
+        [ForeignKey(nameof(ClinicId))] 
+        public virtual Clinic Clinic { get; set; } = null!;
 
         [InverseProperty("RequestedBy")]
-        public List<ClinicStaffLeave> ClinicStaffLeaveRequest { get; set; }
+        public virtual List<ClinicStaffLeave>? ClinicStaffLeaveRequest { get; set; }
+                                                              
+        [InverseProperty("ReplacedBy")]                       
+        public virtual List<ClinicStaffLeave>? ClinicStaffLeaveReplace { get; set; }
 
-        [InverseProperty("ReplacedBy")]
-        public List<ClinicStaffLeave> ClinicStaffLeaveReplace { get; set; }
 
-
-        public string BaseUserId { get; set; }
-        [ForeignKey(nameof(BaseUserId))]
-        public BaseApplicationUser BaseApplicationUser { get; set; }
+        public string? UserId { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public virtual BaseApplicationUser? BaseUser { get; set; }
     }
 }

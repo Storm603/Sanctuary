@@ -1,26 +1,18 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model Sanctuary.Web.Views.ViewModels.RegisterViewModel
 
-<head>
-    <link rel="stylesheet" href="~/css/RegisterPage.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
-    <style>
-        .container {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            align-content: center;
-        }</style>
-</head>
-
 @{
     ViewData["Title"] = "Register";
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div class="content register-photo align-content-center">
-        <div class="form-container">
+<head>
+    <link rel="stylesheet" href="~/css/RegisterPage.css" asp-append-version="true" />
+</head>
+
+<div class="d-flex align-content-center justify-content-center">
+    <div class="content register-photo ">
+        <div class="form-container ">
             <div class="image-holder"></div>
 
             <form id="registerForm" method="post">
@@ -59,6 +51,7 @@
                 </div>
                 <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
             </form>
+
         </div>
     </div>
 </div>
@@ -67,5 +60,3 @@
     <partial name="_ValidationScriptsPartial" />
 }
 
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>

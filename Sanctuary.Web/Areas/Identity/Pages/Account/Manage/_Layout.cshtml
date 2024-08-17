@@ -1,14 +1,14 @@
 ﻿@{
     if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
     {
-        Layout = (string)parentLayout;
+        Layout = parentLayout.ToString();
     }
     else
     {
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
-
+C:\Users\Kristiyan\source\repos\Sanctuary\Sanctuary.Web\Areas\Identity\Pages\Account\Manage\_Layout.cshtml
 <h1>Manage your account</h1>
 
 <div>

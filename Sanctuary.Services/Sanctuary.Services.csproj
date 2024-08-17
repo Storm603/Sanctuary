@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Sanctuary.Data\Sanctuary.Data.csproj" />
+    <ProjectReference Include="..\Sanctuary.Services.API\Sanctuary.Services.API.csproj" />
     <ProjectReference Include="..\Sanctuary.Services.Data\Sanctuary.Services.Data.csproj" />
+    <ProjectReference Include="..\Sanctuary.Web.ViewModels\Sanctuary.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

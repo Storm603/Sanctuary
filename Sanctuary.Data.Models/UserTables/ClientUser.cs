@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Sanctuary.Data.Models.ClinicTables;
-using Sanctuary.Data.Models.LocationTables;
 using Sanctuary.Data.Models.PetTables;
 
 namespace Sanctuary.Data.Models.UserTables
@@ -15,21 +9,24 @@ namespace Sanctuary.Data.Models.UserTables
         public ClientUser()
         {
             Id = Guid.NewGuid().ToString();
+            PetOwnerships = new List<Pet>();
+            Invoices = new List<Invoice>();
+            AppointmentList = new List<Appointment>();
         }
         public string Id { get; set; }
 
-        public List<Pet> PetOwnerships = new List<Pet>();
-        public List<Invoice> Invoices = new List<Invoice>();
-        public List<Appointment> AppointmentList = new List<Appointment>();
+        public virtual List<Pet> PetOwnerships { get; set; }
+        public virtual List<Invoice> Invoices { get; set; }
+        public virtual List<Appointment> AppointmentList { get; set; }
 
         public Guid ClinicId { get; set; }
         [ForeignKey(nameof(ClinicId))]
-        public Clinic Clinic { get; set; }
+        public virtual Clinic? Clinic { get; set; }
 
 
-        public string BaseUserId { get; set; }
-        [ForeignKey(nameof(BaseUserId))]
-        public BaseApplicationUser BaseApplicationUser { get; set; }
+        public string? UserId { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public virtual BaseApplicationUser? BaseUser { get; set; }
 
     }
 }

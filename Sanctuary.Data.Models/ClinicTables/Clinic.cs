@@ -1,12 +1,7 @@
 ﻿using Sanctuary.Data.Models.LocationTables;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Sanctuary.Data.Models.UserTables;
+using Sanctuary.Data.Models.PicturesTables;
 
 namespace Sanctuary.Data.Models.ClinicTables
 {
@@ -15,35 +10,44 @@ namespace Sanctuary.Data.Models.ClinicTables
         public Clinic()
         {
             CreatedOn = DateTime.UtcNow;
+            Users = new List<ClientUser>();
+            Doctors = new List<ClinicStaffUser>();
+            Invoices = new List<Invoice>();
+            HospitalizedPets = new List<HospitalizedPets>();
+            Services = new List<ClinicServices>();
+            PromoCodes = new List<PromoCodes>();
+            ClinicStaffLeaves = new List<ClinicStaffLeave>();
+            RelatedPictures = new List<ImageStorage>();
         }
 
-        [Key] 
+        [Key]
         public Guid Id { get; set; }
 
         [Required]
-        public string ClinicName { get; set; }
+        public string ClinicName { get; set; } = null!;
 
         [Required]
         public int HospitalizedPetCagedNumber { get; set; }
 
-        public MT_Clinic_Addresses Address { get; set; }
+        public virtual Address? Address { get; set; }
 
-        public List<ClientUser> Users = new List<ClientUser>();
+        public virtual List<ClientUser> Users { get; set; }
 
-        public List<ClinicStaffUser> Doctor = new List<ClinicStaffUser>();
+        public virtual List<ClinicStaffUser> Doctors { get; set; }
 
-        public List<Invoice> Invoices = new List<Invoice>();
+        public virtual List<Invoice> Invoices { get; set; }
 
+        public virtual List<HospitalizedPets> HospitalizedPets { get; set; }
 
-        public List<HospitalizedPets> HospitalizedPets = new List<HospitalizedPets>();
+        public virtual List<ClinicServices> Services { get; set; }
 
-        public List<ClinicServices> Services = new List<ClinicServices>();
-        public List<PromoCodes> PromoCodes { get; set; }
+        public virtual List<PromoCodes> PromoCodes { get; set; }
 
-        public PetHotel Hotel { get; set; }
+        public virtual PetHotel? Hotel { get; set; }
 
+        public virtual List<ClinicStaffLeave> ClinicStaffLeaves { get; set; }
+        public virtual List<ImageStorage> RelatedPictures { get; set; }
 
-        public List<ClinicStaffLeave> ClinicStaffLeaves { get; set; }
 
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }

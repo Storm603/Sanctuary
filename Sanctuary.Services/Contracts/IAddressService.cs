@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Sanctuary.Services.Data.Services.API.DTO;
 
 namespace Sanctuary.Services.Contracts
 {
     public interface IAddressService
     {
-        public List<string?> RetrieveTownsWithCountriesWhereClinicsAreEstablished();
+        Task<CoordinatesDTO?> GetZIPCoordinatesThroughPostalCodeAsync(string postalCode);
+        Task<List<DetailedAddressDTO>?> GetDetailedAddressInZipRange(string postalCode);
+        Task<List<ZipCoordinatesDTO>?> GetClinicPostalCodesFromSearchBar(string postalCode);
+        Task<List<DetailedAddressDTO>?> GetDetailedAddressByZip(string postalCode);
     }
 }

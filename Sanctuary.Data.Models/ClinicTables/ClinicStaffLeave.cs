@@ -21,30 +21,32 @@ namespace Sanctuary.Data.Models.ClinicTables
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime EndDate { get; set; }
+            
+        [Required] 
+        public virtual AbsenceType AbsenceType { get; set; } = null!;
 
         [Required]
-        public AbsenceType AbscenceType { get; set; }
-
-        [Required]
+        [Range(1, 64)]
         public int Days { get; set; }
 
-        [StringLength(200,MinimumLength = 0)]
-        public string Description { get; set; }
+
+        [StringLength(200, MinimumLength = 0)] 
+        public string Description { get; set; } = null!;
 
         [Required]
         public bool Approved { get; set; }
 
 
-        [Required]
-        public string RequestedById { get; set; }
-        [ForeignKey(nameof(RequestedById))]
-        public ClinicStaffUser RequestedBy { get; set; }
+        [Required] 
+        public string RequestedById { get; set; } = null!;
+        [ForeignKey(nameof(RequestedById))] 
+        public virtual ClinicStaffUser RequestedBy { get; set; } = null!;
 
 
 
-        public string ReplacedById { get; set; }
+        public string? ReplacedById { get; set; }
         [ForeignKey(nameof(ReplacedById))]
-        public ClinicStaffUser? ReplacedBy { get; set; }
+        public virtual ClinicStaffUser? ReplacedBy { get; set; }
 
         
     }

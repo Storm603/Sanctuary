@@ -12,7 +12,7 @@ namespace Sanctuary.Data.Models.ClinicTables
         [Key]
         public int Id { get; set; }
 
-        [MaxLength(15)]
-        public string Type { get; set; }
+        [MaxLength(15)] 
+        public string Type { get; set; } = null!;
     }
 }

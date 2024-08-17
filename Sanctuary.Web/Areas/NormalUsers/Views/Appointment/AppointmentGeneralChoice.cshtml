@@ -1,0 +1,119 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Sanctuary.Web.ViewModels.AppointmentGeneralInformationViewModel
+@{
+    ViewData["Title"] = "Booking";
+    Layout = "/Areas/NormalUsers/Shared/_Layout.cshtml";
+    string data = ViewData["ClinicName"]!.ToString()!;
+}
+<body style="background-color: #50D050">
+    <h3 style="text-align: center; margin-bottom: 20px;margin-top: 50px">What brings you to the vet</h3>
+
+    <form asp-area="NormalUsers" asp-controller="Appointment" asp-action="AppointmentDetails" method="post">
+        
+        <input asp-for="@Model.ClinicName" type="hidden" value="@data">
+
+        <div class="container d-flex justify-content-center align-items-center border " style="height: 50%;">
+
+            <div class="row d-flex justify-content-end align-items-center p-3 m-2" style="overflow: hidden;">
+
+                <div class="row d-flex border  p-3" style="display: grid; height: 170px; width: 400px;">
+                    <div class="text-center p-0" style="width: 50px">
+                        <img src="/Pictures/VaccineImage.svg" height="40" width="40" alt="test" asp-append-version="true">
+                        <input asp-for="@Model.AppointmentType" name="appointmentType" type="radio" value="Common">
+                    </div>
+                    <div class="col" style="margin: 0px 10px 0px 10px">
+                        <span class="row" style="font-size: 18px; font-weight: bold; margin-bottom: 5px">Well-being exam</span>
+                        <span class="row" style="overflow-wrap: break-word; font-size: 14px;">Pet Vaccines | Pest/Parasite Detection and Prevention | Nose to Tail Exam | Microchip | Dental Cleaning and Surgery Consultation</span>
+                    </div>
+                </div>
+
+                <div class="p-2"></div>
+
+                <div class="row d-flex border  p-3" style="display: grid; height: 170px; width: 400px;">
+                    <div class="text-center p-0" style="width: 50px">
+                        <img src="/Pictures/DoctorHeadset.svg" height="40" width="40" alt="test" asp-append-version="true">
+                        <input asp-for="@Model.AppointmentType" name="appointmentType" type="radio" value="Specialized">
+                    </div>
+                    <div class="col" style="margin: 0px 10px 0px 10px">
+                        <span class="row" style="font-size: 18px; font-weight: bold; margin-bottom: 5px">Specialized Vets</span>
+                        <span class="row" style="overflow-wrap: break-word; font-size: 14px;">Wounds | Limping | Ears | Skin Conditions | Digestive | Reproductive | Any Other Sick Issue or Injury</span>
+                    </div>
+                </div>
+
+            </div>
+                
+            <div class="p-2"></div>
+
+            <div class="row d-flex justify-content-start align-items-center p-3 m-2" style="overflow: hidden">
+
+                <div class="row border d-flex p-3" style="display: grid; height: 170px; width: 400px;">
+                    <div class="text-center p-0" style="width: 50px">
+                        <img src="/Pictures/RecheckFollowUp.svg" height="40" width="40" alt="test" asp-append-version="true">
+                        <input asp-for="@Model.AppointmentType" name="appointmentType" type="radio" value="Recheck">
+                    </div>
+                    <div class="col" style="margin: 0px 10px 0px 10px">
+                        <span class="row" style="font-size: 18px; font-weight: bold; margin-bottom: 5px">Recheck / Follow Up</span>
+                        <span class="row" style="overflow-wrap: break-word; font-size: 14px;">Hospital Visit Follow-Up | Booster Vaccines | Recheck within 3 months | After surgery Check</span>
+                    </div>
+                </div>
+
+                <div class="p-2"></div>
+
+                <div class="row border d-flex p-3" style="display: grid; height: 170px; width: 400px;">
+                    <div class="text-center p-0" style="width: 50px">
+                        <img src="/Pictures/UrgentNeeds.png" height="40" width="40" alt="test" asp-append-version="true">
+                        <input asp-for="@Model.AppointmentType" name="appointmentType" type="radio" value="Urgent">
+                    </div>
+                    <div class="col" style="margin: 0px 10px 0px 10px">
+                        <span class="row" style="font-size: 18px; font-weight: bold; margin-bottom: 5px">Urgent Need</span>
+                        <span class="row" style="overflow-wrap: break-word; font-size: 14px;">Please note our hospitals are not open 24/7, please call the hospital if they can see your pet today</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <center><button type="submit" class="justify-content-center btn btn-lg btn-primary">Register</button></center>
+
+    </form>
+</body>
+
+
+
+
+@* @{
+    if (@Model.Veterinarians == null || @Model.Veterinarians.Count == 0)
+    {
+        <span>We apologize for the inconvenience but we currently don't have any veterinarians specialized in the field in this branch, please select another clinic.</span>
+    }
+    else
+    {
+        foreach (var vet in @Model.Veterinarians)
+        {
+            <span>@vet.FirstName</span>
+            <span>@vet.LastName</span>
+            <span>@vet.Email</span>
+            <span>@vet.PhoneNumber</span>
+            <span>@vet.ClinicName</span>
+            <span>@vet.RoleName</span>
+            <span>@vet.ImageId</span>
+            <img src="@Url.Action("GetPfpByPk", "Image", new {  pictureID = vet.ImageId})" width="400" height="200"/>
+
+        }
+    }
+} *@
+@*     <img src="@Url.Action("GetImage", "Appointment", new {  pictureID = "dsgag"})" alt ="image"/>
+
+    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model)"
+    @Model.PictureName
+    <img asp-append-version="true" asp-for="@Model.ImageStream." alt="Your Image">
+
+
+    @{
+
+        var base64 = Convert.ToBase64String(Model.);
+        var userImage = String.Format("data:image/gif;base64,{0}", base64);
+        <img src="@userImage" alt="User Image" style="height: 300px">
+
+
+    } *@
+

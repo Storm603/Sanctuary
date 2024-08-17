@@ -1,29 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Sanctuary.Web.Models;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Identity;
-using Sanctuary.Services;
-using Sanctuary.Services.Contracts;
+using Sanctuary.Web.ViewModels;
 
 namespace Sanctuary.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public RoleManager<IdentityRole> rolemanager { get; set; }
         private readonly ILogger<HomeController> _logger;
-        private readonly IWeatherApi widget;
 
-        public HomeController(ILogger<HomeController> logger, IWeatherApi widget)
+        public HomeController(ILogger<HomeController> logger)
         {
-            _logger = logger;
-            this.widget = widget;
+            this._logger = logger;
         }
 
         public IActionResult Index()
         {
-
-            //List<HomePageWeatherForecastDTO>
-
             return View();
         }
 

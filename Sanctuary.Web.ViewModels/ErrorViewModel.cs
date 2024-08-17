@@ -1,4 +1,4 @@
-namespace Sanctuary.Web.Models
+namespace Sanctuary.Web.ViewModels
 {
     public class ErrorViewModel
     {

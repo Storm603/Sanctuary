@@ -1,0 +1,300 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model Sanctuary.Web.ViewModels.AppointmentCreationViewModels.AppointmentSubmissionViewModel
+
+@{
+    ViewData["Title"] = "Booking";
+    Layout = "/Areas/NormalUsers/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/css/AppointmentMaking/AppointmentSubmissionCSS.css" asp-append-version="true" />
+
+}
+
+<body style="background-color: #50D050">
+
+    <div class="container">
+
+        <div style="margin-top: 20px;">
+            <div class="progressor">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+
+            <div id="petSelection" style="height: 100%">
+                <div id="appScreenOne" class=""  style="">
+                    <div style="margin: 10px 10px 40px 10px">
+                        <div>
+                            <p class="text-element mandatory">
+                                Number of pets
+                            </p>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <ul id="numberOfPets" style="display:inline-flex" role="radiogroup">
+                                <li>
+                                    <button aria-checked="true" class="btn btn-light radioPetSelection" role="radio" style="border: 2px solid" aria-label="1">1</button>
+                                </li>
+                                <li>
+                                    <button aria-checked="false" class="btn btn-light radioPetSelection" role="radio" style="border: 2px solid" aria-label="2">2</button>
+                                </li>
+                                <li>
+                                    <button aria-checked="false" class="btn btn-light radioPetSelection" role="radio" style="border: 2px solid" aria-label="3">3</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="margin: 10px;">
+                        <p class="text-element mandatory">
+                            Pet selection
+                        </p>
+                        @if (User.Identity!.IsAuthenticated && Model.OwnedPets.Count == 0)
+                        {
+                            <p>Don't have a registered pet? <span style="text-decoration:underline; color: blue; cursor: pointer;">Register now!</span></p>
+                        }
+                        else if (Model.OwnedPets!.Count > 0)
+                        {
+                            @for (int i = 0; i < Model.OwnedPets.Count; i++)
+                            {
+                                <div id="infoCard" style="display: grid; grid-template-rows: 20px 20px 20px 20px 20px 20px 20px 20px; margin:20px;">
+                                    <label>Id: @Model.OwnedPets[i].Id</label>
+                                    <label>Pet Name: @Model.OwnedPets[i].Name</label>
+                                    <label>Breed: @Model.OwnedPets[i].Breed</label>
+                                    <label>Date of Birth: @Model.OwnedPets[i].DateOfBirth</label>
+                                    <label>Sex: @Model.OwnedPets[i].Sex</label>
+                                    <label>Weight: @Model.OwnedPets[i].Weight kg</label>
+                                    <label>Eye Colour: @Model.OwnedPets[i].EyeColour</label>
+                                    <label>Fur Colour: @Model.OwnedPets[i].FurColour</label>
+                                    <label>Microchip: @(@Model.OwnedPets[i].Microchip == false ? "X" : "Y")</label>
+                                </div>
+                                <div id="picture">
+
+                                    <img src="@Url.Action("GetPfpByPk", "Image", new {pictureId = Model.OwnedPets[i].PictureId})" style="height: 380px; width:350px;" alt="img" />
+
+                                </div>
+                                <div class="justify-content-center">
+                                    <div class="form-check">
+                                        <div>
+                                            <input class="form-check-input" style="width:100px; height: 50px" type="checkbox" name="PetIds" value="@Model.OwnedPets[i].Id">
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                        <p>
+                            <span class="text-element mandatory">Select appointment type</span>
+                        </p>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Appointment type</option>
+                            <option value="1">
+                                <img src="@Url.Action("GetPfpByPk", "Image", new {pictureId = "EF1ED0B9-BF87-461B-AFBB-3E9D6DDDBD1A"})" style="height: 380px; width:350px;" alt="img" />
+                            </option>
+                            <option value="2">Pest/Parasite Detection and Prevention</option>
+                            <option value="3">Nose to Tail Exam</option>
+                            <option value="4">Microchip</option>
+                            <option value="5">Dentistry</option>
+                            <option value="6">Surgery Consultation</option>
+                            <option value="7">Hospitalization</option>
+                            <option value="8">Diagnostic imaging</option>
+                        </select>
+                    </div>
+
+                    <div class="buttonTray" style="display: flex">
+                        <div class="rightButtonSliderAlignments">
+                            <button id="toSlideTwo" type="button" class="btn btn-primary">Next Screen</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div id="appScreenTwo" style="width: 100%; border: solid black; border-width: 1px; margin-top: 10px; display: none;">
+                    <div id="elementWrapper" style="display:flex;">
+                        <div id="vetListWrapper">
+                            <ul id="vetList">
+                                @for (int i = 0; i < Model.ClinicVets.Count; i++)
+                                {
+                                    <li id="vetInfo-@i">
+                                        <span>@Model.ClinicVets[i].FirstName @Model.ClinicVets[i].LastName</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div id="infoScreenSelected" style="border: solid black; margin: 10px; display: flex; flex-grow: 1; min-width: 210px;">
+                            <div style="padding: 5px;border: solid black; margin: 10px; min-width: 210px;">
+                                <table class="calendarTableTag">
+                                    <thead style="text-align: center;">
+                                        <tr class="calendar-navigation">
+                                            <th colspan="1">
+                                                <button id="calendarButtonArrowLeft" class="calendar-navigation" type="button" style="width: 100%; height: 100%"> &#60; </button>
+                                            </th>
+                                            <th colspan="5" id="current-month-information"></th>
+                                            <th colspan="1">
+                                                <button id="calendarButtonArrowRight" class="calendar-navigation" type="button" style="width: 100%; height: 100%"> &#62; </button>
+                                            </th>
+                                        </tr>
+                                        <tr class="calendar-days-of-week">
+                                            <th style="width: 40px">Mon</th>
+                                            <th style="width: 40px">Tue</th>
+                                            <th style="width: 40px">Wed</th>
+                                            <th style="width: 40px">Thu</th>
+                                            <th style="width: 40px">Fri</th>
+                                            <th style="width: 40px">Sat</th>
+                                            <th style="width: 40px">Sun</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-calendar-id="calendar-month-days">
+                                    </tbody>
+                                </table>
+                            </div>
+                            @for (int i = 0; i < Model.ClinicVets.Count; i++)
+                            {/* display:flex; */
+                                <div data-list-id="vetInfo-@i" style="padding: 5px;border: solid black; margin: 10px; display: none; flex-grow: 1; min-width: 210px;">
+
+                                    <div id="infoCard">
+                                        <div class="text-center" style="margin: 5px;">
+
+                                            <img src="@Url.Action("GetPfpByPk", "Image", new {pictureId = Model.ClinicVets[i].PictureId})" style="height: 240px; width:200px;" alt="img" />
+
+                                        </div>
+                                        <div style="display: grid; grid-template-rows: 20px 20px 20px 20px 20px 20px; ">
+                                            <label>Id: example id</label>
+                                            <label>First Name: @Model.ClinicVets[i].FirstName</label>
+                                            <label>Last Name: @Model.ClinicVets[i].LastName</label>
+                                            <label>Email: @Model.ClinicVets[i].Email</label>
+                                            <label>Phone Number: @Model.ClinicVets[i].PhoneNumber</label>
+                                            <label>Role: Ex Role</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="buttonTray" style="display: flex">
+                        <div class="leftButtonSliderAlignments">
+                            <button id="backToSlideOne" type="button" class="btn btn-primary" >Turn Back</button>
+                        </div>
+                        <div class="rightButtonSliderAlignments">
+                            <button id="toSlideThree" type="button" class="btn btn-primary" >Next Screen</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                    <div id="appScreenThree" style="width:100%; display: none;">
+                        <button id="backToSlideTwo" type="button" class="btn btn-primary">Turn Back</button>
+
+                        <button id="toSlideFour" type="button" class="btn btn-primary">Next Screen</button>
+
+                        nothing here yet
+                    </div>
+            </div>
+
+            <!-- Modal -->
+            <div id="dayScheduleModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="daySchedulePopUp" class="mw-100">
+                                <table style="text-align:center">
+                                    <thead style="text-align: center;">
+                                        <tr>
+                                            <th id="dayScheduleDayIndicator" colspan="97"></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="97" style="height: 100px; background-color: white;">
+                                                <div id="daySchedulePanel" class="d-inline-flex" style="width:100%; ">
+                                                    <div style="align-self:center; margin: 5px;">
+                                                        From:
+                                                    </div>
+                                                    <div style="align-self:center; margin: 5px;">
+                                                        <label>HH</label>
+                                                    </div>
+
+                                                    <div style="display: grid; margin: 5px;">
+                                                        <button id="arrowHourUp" class="timeControls" style="text-align: center; cursor: pointer;" type="button">&#8593;</button>
+                                                        <input type="text" class="timePickerNormal" id="hour" name="appHourStart" style="width: 25px" maxlength="2" autocomplete="off" required />
+                                                        <button id="arrowHourDown" class="timeControls" style="text-align: center; cursor: pointer;" type="button">&#8595;</button>
+                                                    </div>
+
+                                                    <div style="align-self:center; margin: 5px;">
+                                                        <label>MM</label>
+                                                    </div>
+                                                    <div style="display: grid; margin: 5px;">
+                                                        <button id="arrowMinuteUp" class="timeControls" style="text-align: center; cursor: pointer;" type="button">&#8593;</button>
+                                                        <input type="text" class="timePickerNormal" id="minute" name="appHourStart" style="width: 25px;" maxlength="2" autocomplete="off" required />
+                                                        <button id="arrowMinuteDown" class="timeControls" style="text-align: center; cursor: pointer;" type="button">&#8595;</button>
+                                                    </div>
+                                                    <div style="align-self:center; margin: 0px 5px 0px 20px;">
+                                                        To:
+                                                    </div>
+                                                    <div style="align-self:center; margin: 5px;">
+                                                        <label>HH</label>
+                                                    </div>
+                                                    <input type="text" class="timePickerNormal align-self-center" id="hourTo" name="appHourEnd" style="width: 25px; height: 30px; cursor:not-allowed" autocomplete="off" disabled />
+
+                                                    <div style="align-self:center; margin: 5px;">
+                                                        <label>MM</label>
+                                                    </div>
+                                                    <input type="text" class="timePickerNormal align-self-center" id="minuteTo" name="appHourEnd" style="width: 25px; height: 30px; cursor:not-allowed" autocomplete="off" disabled />
+                                                    <div style="align-self:center; margin: 5px;">
+                                                        <label>Trafic (INSERT CHANGING STATUS)</label>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <span id="errorMessageNotification" class="alert-danger" style="display: none" role="alert"></span>
+                                                    <span id="messageNotification" class="alert-success" style="display: none" role="alert"></span>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="days-of-week-item" colspan="12">08:00</th>
+                                            <th class="days-of-week-item" colspan="12">09:00</th>
+
+                                            <th class="days-of-week-item" colspan="12">10:00</th>
+                                            <th class="days-of-week-item" colspan="12">11:00</th>
+
+                                            <th class="days-of-week-item" style="background-color: gray;">12:00</th>
+
+                                            <th class="days-of-week-item" colspan="12">13:00</th>
+                                            <th class="days-of-week-item" colspan="12">14:00</th>
+
+                                            <th class="days-of-week-item" colspan="12">15:00</th>
+                                            <th class="days-of-week-item" colspan="12">16:00</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dayAppointmentSchedule" style="margin: 10px; padding: 10px;">
+                                        <tr id="hourSchedule"></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button id="confirmDayScheduleButton" type="button" class="btn btn-primary text-center" data-dismiss="modal">Confirm</button>
+                            <button id="declineDayScheduleButton" type="button" class="btn btn-danger text-center" data-dismiss="modal">Decline</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* modal end *@
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/AppointmentSubmissionJS.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/AppointmentSlider.js" asp-append-version="true"></script>
+
+<script>
+    var products = @Json.Serialize(Model.ClinicVets);
+</script>

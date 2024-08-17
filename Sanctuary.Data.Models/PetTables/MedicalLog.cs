@@ -1,29 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using Sanctuary.Data.Models.ClinicTables;
 
 namespace Sanctuary.Data.Models.PetTables
 {
     public class MedicalLog
     {
+        public MedicalLog()
+        {
+            MedicineList = new List<Medicine>();
+        }
         [Key]
         public Guid Id { get; set; }
 
-        [Required] [MaxLength(300)] 
+        [Required] 
+        [MaxLength(300)] 
         public string ReasonOfVisitation { get; set; } = null!;
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime DateAndTimeOfVisitation { get; set; }
-        public List<Medicine> MedicineList { get; set; } = null!;
+        public virtual List<Medicine> MedicineList { get; set; }
 
-        [Required]
-        public Guid PetId { get; set; }
-        [ForeignKey(nameof(PetId))] 
-        public Pet Pet { get; set; } = null!;
+        //public Guid PetId { get; set; }
+        //[ForeignKey(nameof(PetId))] 
+        public virtual Pet? Pet { get; set; }
     }
 }

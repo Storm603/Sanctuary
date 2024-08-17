@@ -1,51 +1,78 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Sanctuary.Services.API.APIContracts;
 using Sanctuary.Services.Contracts;
-using Sanctuary.Services.Data.DTO;
-using Sanctuary.Web.Data;
-using System.Text.Json;
+using Sanctuary.Data.Control.ControlContracts;
+using Sanctuary.Data.Models.LocationTables;
+using Sanctuary.Data.Repositories.RepositoriesContracts;
+using Sanctuary.Services.Data.Services.API.DTO;
+using Sanctuary.Common;
+using System.Text.RegularExpressions;
+using Sanctuary.Data;
 
 namespace Sanctuary.Services
 {
     public class AddressService : IAddressService
     {
-        public ApplicationDbContext context { get; set; }
-        public AddressService(ApplicationDbContext context)
+        //private readonly ITransactionalManagementUoW<IAddressRepository<Address>, Address> _unitOfWork;
+        private readonly IAPIGoogleGeocodingService _coordRetriever;
+
+        //public AddressService(ITransactionalManagementUoW<IAddressRepository<Address>, Address> unitOfWork, IAPIGoogleGeocodingService coordRetriver)
+        //{
+        //    this._unitOfWork = unitOfWork;
+        //    this._coordRetriever = coordRetriver;
+        //}
+
+        private IAddressRepository<Address> Repository;
+
+        public AddressService(IAddressRepository<Address> Repository, IAPIGoogleGeocodingService _coordRetriever)
         {
-            this.context = context;
+            this.Repository = Repository;
+            this._coordRetriever = _coordRetriever;
         }
 
-        public List<string?> RetrieveTownsWithCountriesWhereClinicsAreEstablished()
+        //[UrlSanitization]
+        public async Task<List<ZipCoordinatesDTO>?> GetClinicPostalCodesFromSearchBar(string postalCode)
         {
-            return context.MtClinicAddresses.Include(x => x.Address).Select(x => x.Address.Town)
-                .Distinct().ToList();
-
-            
-            /// returns country and towns(distincted)
-            //return context.MtClinicAddresses.Include(x => x.Address).Select(x => string.Join(" ", new
-            //{
-            //    x.Address.Country,
-            //    x.Address.Town,
-            //})).Distinct().ToList();
-        }
-
-        //retrieves latitude and longitude for clinics from address table
-        public string RetrieveClinicLatitudeAndLongitude()
-        {
-            Location[] geoData = context.Clinics.Include(x => x.Address).Select(x => new Location()
+            if (string.IsNullOrWhiteSpace(postalCode) || !Regex.IsMatch(postalCode, RegexConstants.RegexNumbersOnly))
             {
-                lat = x.Address.Address.lat.Value,
-                lng = x.Address.Address.lon.Value
-            }).ToArray();
+                return null;
+            }
+            return await Repository.GetUniqueClinicsPostalCodesStartingWith(postalCode);
+        }
 
-            var jsonInfo = JsonSerializer.Serialize(geoData);
+        //[UrlSanitization]
+        public async Task<List<DetailedAddressDTO>?> GetDetailedAddressInZipRange(string postalCode)
+        {
+            if (string.IsNullOrWhiteSpace(postalCode) || !Regex.IsMatch(postalCode, RegexConstants.RegexNumbersOnly))
+            {
+                return null;
+            }
+            return await Repository.GetAddressDetailsFilteredByZip(postalCode);
+        }
 
-            return jsonInfo;
+        public async Task<List<DetailedAddressDTO>?> GetDetailedAddressByZip(string postalCode)
+        {
+            if (string.IsNullOrWhiteSpace(postalCode) || !Regex.IsMatch(postalCode, RegexConstants.RegexNumbersOnly))
+            {
+                return null;
+            }
+
+            return await Repository.GetFormattedAddressListByZip(postalCode);
+        }
+
+        public async Task<CoordinatesDTO?> GetZIPCoordinatesThroughPostalCodeAsync(string postalCode)
+        {
+            // Gets all parameters(ZIP, Town, Country) through which Google Geocoding API can retrieve specific ZIP code coordinates so the Map on the UI can be centered accordingly on the ZIP area
+            string? locationInfo = Repository.GetDBTownAndCountryThroughPostalCode(postalCode);
+
+            // No postal code returns default value
+            if (string.IsNullOrEmpty(locationInfo))
+            {
+                return null;
+            }
+
+
+            // Google Geocoding API call
+            return await _coordRetriever.GetGAPILatitudeAndLongitudeByZipTownCountry(locationInfo);
         }
     }
 }

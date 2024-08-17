@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Sanctuary.Services.Data\Sanctuary.Services.Data.csproj" />
+  </ItemGroup>
+
 </Project>
