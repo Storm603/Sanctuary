@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sanctuary.Data.Models.PetTables;
+using Sanctuary.Data.Models.UserTables;
 using Sanctuary.Data.Repositories.RepositoriesContracts;
 using Sanctuary.Services.Data.Services.DTOs.AppointmentDTOs;
 
@@ -17,10 +18,10 @@ namespace Sanctuary.Data.Repositories
 
         public async Task<List<PetDTO>> GetAllPetsOwnedByRegisteredUserByUserId(string userId)
         {
-            List<PetDTO> listed = await DbSet
+            return await DbSet
+                .Include(x => x.RelatedPictures)
                 .Include(x => x.ClientUser)
                 .ThenInclude(x => x.BaseUser)
-                .ThenInclude(x => x!.RelatedPictures)
                 .Where(x => x.ClientUser.BaseUser!.Id == userId)
                 .Select(x => new PetDTO
                 {
@@ -35,7 +36,6 @@ namespace Sanctuary.Data.Repositories
                     Microchip = x.Microchip,
                     PictureId = x.RelatedPictures.Where(x => x.IsProfilePicture).Select(x => x.Id).FirstOrDefault().ToString(),
                 }).ToListAsync();
-            return listed;
         }
     }
 }

@@ -11,8 +11,9 @@ namespace Sanctuary.Data.Repositories.RepositoriesContracts
 {
     public interface IUserRepository<TUser> : IBaseRepository<TUser> where TUser : BaseApplicationUser
     {
-        Task<List<TUser>> GetAllVeterinariansByUserRoleAndClinicId(string userRole, string clinicName);
-        Task<List<VetDTO>> GetAllVeterinariansByClinicName(string clinicName);
+        public Task<TUser> GetUserById(string userId);
+        public Task<ClientUser> GetRelatedClientByBasePK(string userId);
+
     }
 }
     

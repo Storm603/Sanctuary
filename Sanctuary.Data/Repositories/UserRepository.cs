@@ -18,45 +18,17 @@ namespace Sanctuary.Data.Repositories
             RoleManager = injRoleManager;
         }
 
-        public async Task<List<VetDTO>> GetAllVeterinariansByClinicName(string clinicName)
-        {
-            var vetsDTO = await DbSet.Include(x => x.Veterinary)
-                .Where(x => x.Veterinary!.Clinic.ClinicName == clinicName)
-                .Include(x => x.RelatedPictures)
-                .Include(x => x.Roles)
-                .Select(x => new VetDTO
-                {
-                    Id = x.Veterinary!.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Email = x.Email,
-                    PhoneNumber = x.PhoneNumber,
-                    RoleName = x.Roles.ToList(),
-                    PictureId = x.RelatedPictures.Where(x => x.IsProfilePicture).Select(x => x.Id).FirstOrDefault().ToString(),
-                }).ToListAsync();
 
-            return vetsDTO;
+
+        public async Task<TUser> GetUserById(string userId)
+        {
+            return await DbSet.Where(x => x.Id == userId).FirstOrDefaultAsync();
         }
 
-        public async Task<List<TUser>> GetAllVeterinariansByUserRoleAndClinicId(string userRole, string clinicName)
+        public async Task<ClientUser> GetRelatedClientByBasePK(string userId)
         {
-            clinicName = "SanctuaryZdravetc";
-
-            var users = await DbSet.Include(x => x.RelatedPictures).Where(x => x.Veterinary!.Clinic.ClinicName == clinicName).ToListAsync();
-
-            // needs to be more optimized for more efficient execution
-            for (int i = users.Count - 1; i >= 0; i--)
-            {
-                if (await UserManager.IsInRoleAsync(users[i], userRole) == false)
-                {
-                    users.RemoveAt(i);
-                }
-            }
-
-            return users;
+            return await DbSet.Include(x => x.Client).Where(x => x.Id == userId).Select(x => x.Client).FirstOrDefaultAsync();
         }
-
-
 
     }
 }

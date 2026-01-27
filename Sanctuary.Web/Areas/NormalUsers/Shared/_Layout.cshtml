@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
    
 </head>
-<body>
+<body style="background-color: #50D050">
     <header>
         @if (User.Identity!.IsAuthenticated)
         {
@@ -88,20 +88,18 @@
         </nav>
     </header>
 
-    <main role="main">
+    <main  role="main">
         @RenderBody()
     </main>
 
-    <footer class="footer border-top text-muted ">
+    <footer class="footer mt-auto border-top text-muted " style="position:relative; height: 100px;">
         <div class="container footer-text">
 
             <span>
                 2022 - Sanctuary - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </span>
         </div>
-
     </footer>
-
 </body>
 
 </html>

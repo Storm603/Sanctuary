@@ -39,9 +39,9 @@ namespace Sanctuary.Data.Repositories
 
             try
             {
-                using (var reader = await command.ExecuteReaderAsync())
+                using (var reader = command.ExecuteReader())
                 {
-                    while (await reader.ReadAsync())
+                    while (reader.Read())
                     {
                         if (await reader.IsDBNullAsync(0))
                         {
@@ -57,8 +57,6 @@ namespace Sanctuary.Data.Repositories
 
                         if (fileStream.CanRead)
                         {
-                            //await conn.CloseAsync();
-                            //await tran.DisposeAsync();
                             return fileStream;
                         }
                     }
@@ -69,6 +67,7 @@ namespace Sanctuary.Data.Repositories
                 Console.WriteLine(e);
                 return null;
             }
+
             await conn.CloseAsync();
             await tran.DisposeAsync();
 

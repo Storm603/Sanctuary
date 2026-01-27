@@ -20,7 +20,7 @@ namespace Sanctuary.Data.Seeding
     // Every new record(User, Vet, Clinic, Pet) needs to have an image added in the appropriate folder in the following directory "C:\Users\Kristiyan\Documents\SanctuaryPhotos" for the PhotoSeeder class
 
     // Total Entity Counts with photos:
-    // Clinics: 7, Veterinarians: 4, Clients: 7, Pets: 8
+    // Clinics: 7, Veterinarians: 4, Clients: 7, Pets: 11
 
     internal class GeneralInformationSeeder : ISeeder
     {
@@ -301,6 +301,49 @@ namespace Sanctuary.Data.Seeding
                     {
                         Id = "30b0a024-61d0-4a17-b610-231df2b6c560",
                         UserId = "e181f671-6d99-4bf3-ad18-dc3ce49fe848",
+                        PetOwnerships = new List<Pet>()
+                        {
+                            new Pet(){
+                                Id = Guid.Parse("ca8941b4-d71e-4947-8127-b64d87fec0d6"),
+                                Name = "TestPet",
+                                BreedId = 4,
+                                DateOfBirth = DateTime.Parse("2018-03-12"),
+                                Sex = 'M',
+                                Weight = (float) 11.21,
+                                EyeColor = "black",
+                                FurColor = "white",
+                                Microchip = false,
+                                Description = "A very good hamster!",
+                                ClientUserId = "30b0a024-61d0-4a17-b610-231df2b6c560"
+                            },
+                            //2 new pets added 18.06.2025
+                            new Pet(){
+                                Id = Guid.Parse("db579166-eccc-4704-8543-15bbe3210717"),
+                                Name = "TestDog11111",
+                                BreedId = 1,
+                                DateOfBirth = DateTime.Parse("2018-03-12"),
+                                Sex = 'M',
+                                Weight = (float) 23.21,
+                                EyeColor = "grey",
+                                FurColor = "white",
+                                Microchip = false,
+                                Description = "A very good husky!",
+                                ClientUserId = "30b0a024-61d0-4a17-b610-231df2b6c560"
+                            },
+                            new Pet(){
+                                Id = Guid.Parse("d50083d8-643f-4ea5-bc11-24a68d36b5e8"),
+                                Name = "TestParrot22222222",
+                                BreedId = 2,
+                                DateOfBirth = DateTime.Parse("2018-03-12"),
+                                Sex = 'M',
+                                Weight = (float) 5.81,
+                                EyeColor = "black",
+                                FurColor = "green",
+                                Microchip = false,
+                                Description = "As fast as a fighter jet!",
+                                ClientUserId = "30b0a024-61d0-4a17-b610-231df2b6c560"
+                            }
+                        },
                         ClinicId = Guid.Parse("c370d263-f095-4888-9f0e-5a2fdd49b8f3")
                     },
                     Address = new Address()

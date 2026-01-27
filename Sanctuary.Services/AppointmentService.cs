@@ -13,12 +13,12 @@ namespace Sanctuary.Services
     public class AppointmentService : IAppointmentService
     {
         private IPetRepository<Pet> PetRepository;
-        private IUserRepository<BaseApplicationUser> UserRepository;
+        private IVeterinaryRepository<ClinicStaffUser> VetRepository;
         private IAppointmentRepository<Appointment> AppointmentRepository;
-        public AppointmentService(IPetRepository<Pet> injPetRepository, IUserRepository<BaseApplicationUser> injUserRepository, IAppointmentRepository<Appointment> injAppRepository)
+        public AppointmentService(IPetRepository<Pet> injPetRepository, IVeterinaryRepository<ClinicStaffUser> injVetRepository, IAppointmentRepository<Appointment> injAppRepository)
         {
             PetRepository = injPetRepository;
-            UserRepository = injUserRepository;
+            VetRepository = injVetRepository;
             AppointmentRepository = injAppRepository;
         }
 
@@ -26,7 +26,7 @@ namespace Sanctuary.Services
         {
             var listOfUserPets = await PetRepository.GetAllPetsOwnedByRegisteredUserByUserId(userID);
 
-            var listOfClinicVets = await UserRepository.GetAllVeterinariansByClinicName(model.ClinicName);
+            var listOfClinicVets = await VetRepository.GetAllVeterinariansByClinicName(model.ClinicName);
 
             var completedModel = new AppointmentSubmissionViewModel()
             {

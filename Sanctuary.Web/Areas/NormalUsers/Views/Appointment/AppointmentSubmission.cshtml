@@ -9,9 +9,9 @@
 
 }
 
-<body style="background-color: #50D050">
+<body style="">
 
-    <div class="container">
+    <div class="@* container *@">
 
         <div style="margin-top: 20px;">
             <div class="progressor">
@@ -22,7 +22,7 @@
             </div>
 
             <div id="petSelection" style="height: 100%">
-                <div id="appScreenOne" class=""  style="">
+                <div id="appScreenOne" class="" style="">
                     <div style="margin: 10px 10px 40px 10px">
                         <div>
                             <p class="text-element mandatory">
@@ -87,8 +87,8 @@
                         <select class="form-select" aria-label="Default select example">
                             <option selected>Appointment type</option>
                             <option value="1">
-                                <img src="@Url.Action("GetPfpByPk", "Image", new {pictureId = "EF1ED0B9-BF87-461B-AFBB-3E9D6DDDBD1A"})" style="height: 380px; width:350px;" alt="img" />
-                            </option>
+@*                                 <img src="@Url.Action("GetPfpByPk", "Image", new {pictureId = "EF1ED0B9-BF87-461B-AFBB-3E9D6DDDBD1A"})" style="height: 380px; width:350px;" alt="img" />
+ *@                            </option>
                             <option value="2">Pest/Parasite Detection and Prevention</option>
                             <option value="3">Nose to Tail Exam</option>
                             <option value="4">Microchip</option>
@@ -109,7 +109,7 @@
 
 
 
-                <div id="appScreenTwo" style="width: 100%; border: solid black; border-width: 1px; margin-top: 10px; display: none;">
+                <div id="appScreenTwo" style="width: 100%; border: solid black; border-width: 1px; margin-top: 10px; display: none; ">
                     <div id="elementWrapper" style="display:flex;">
                         <div id="vetListWrapper">
                             <ul id="vetList">
@@ -173,22 +173,22 @@
                     </div>
                     <div class="buttonTray" style="display: flex">
                         <div class="leftButtonSliderAlignments">
-                            <button id="backToSlideOne" type="button" class="btn btn-primary" >Turn Back</button>
+                            <button id="backToSlideOne" type="button" class="btn btn-primary">Turn Back</button>
                         </div>
                         <div class="rightButtonSliderAlignments">
-                            <button id="toSlideThree" type="button" class="btn btn-primary" >Next Screen</button>
+                            <button id="toSlideThree" type="button" class="btn btn-primary">Next Screen</button>
                         </div>
                     </div>
                 </div>
 
 
-                    <div id="appScreenThree" style="width:100%; display: none;">
-                        <button id="backToSlideTwo" type="button" class="btn btn-primary">Turn Back</button>
+                <div id="appScreenThree" style="width:100%; display: none;">
+                    <button id="backToSlideTwo" type="button" class="btn btn-primary">Turn Back</button>
 
-                        <button id="toSlideFour" type="button" class="btn btn-primary">Next Screen</button>
+                    <button id="toSlideFour" type="button" class="btn btn-primary">Next Screen</button>
 
-                        nothing here yet
-                    </div>
+                    nothing here yet
+                </div>
             </div>
 
             <!-- Modal -->
@@ -284,15 +284,16 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal end -->
         </div>
     </div>
 
-    @* modal end *@
+   
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
-<script type="text/javascript" src="~/js/AppointmentSubmissionJS.js" asp-append-version="true"></script>
+<script type="text/javascript" src="~/js/AppointmentCallendar.js" asp-append-version="true"></script>
 <script type="text/javascript" src="~/js/AppointmentSlider.js" asp-append-version="true"></script>
 
 <script>

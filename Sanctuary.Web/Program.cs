@@ -37,8 +37,9 @@ builder.Services.AddScoped(typeof(IUserRepository<>), typeof(UserRepository<>));
 builder.Services.AddScoped(typeof(IPetRepository<>), typeof(PetRepository<>));
 builder.Services.AddScoped(typeof(IClinicRepository<>), typeof(ClinicRepository<>));
 builder.Services.AddScoped(typeof(IAppointmentRepository<>), typeof(AppointmentRepository<>));
+builder.Services.AddScoped(typeof(IVeterinaryRepository<>), typeof(VeterinaryRepository<>));
 
-
+builder.Services.AddScoped(typeof(IVeterinarySerice), typeof(VeterinaryService));
 builder.Services.AddScoped<IUserRepository<BaseApplicationUser>>(x =>
     new UserRepository<BaseApplicationUser>(x.GetRequiredService<ApplicationDbContext>(), x.GetRequiredService<UserManager<BaseApplicationUser>>(),
         x.GetRequiredService<RoleManager<ApplicationRole>>()));
@@ -65,16 +66,16 @@ var app = builder.Build();
 
 // Seed data on application startup
 
-//using (var serviceScope = app.Services.CreateScope())
-//{
-//    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+using (var serviceScope = app.Services.CreateScope())
+{
+    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-//    dbContext.Database.EnsureDeleted();
-//    dbContext.Database.Migrate();
+    dbContext.Database.EnsureDeleted();
+    dbContext.Database.Migrate();
 
-//    //method moved inInitial migration
-//    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-//}
+    //method moved inInitial migration
+    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

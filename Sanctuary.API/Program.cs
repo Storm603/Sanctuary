@@ -52,6 +52,7 @@ builder.Services.AddScoped<IPostalCodeService, PostalCodeService>();
 builder.Services.AddScoped(typeof(IAppointmentRepository<>), typeof(AppointmentRepository<>));
 builder.Services.AddScoped(typeof(IAppointmentService), typeof(AppointmentService));
 builder.Services.AddScoped(typeof(IPetRepository<>), typeof(PetRepository<>));
+builder.Services.AddScoped(typeof(IVeterinaryRepository<>), typeof(VeterinaryRepository<>));
 builder.Services.AddScoped<IUserRepository<BaseApplicationUser>>(x =>
     new UserRepository<BaseApplicationUser>(x.GetRequiredService<ApplicationDbContext>(), x.GetRequiredService<UserManager<BaseApplicationUser>>(),
         x.GetRequiredService<RoleManager<ApplicationRole>>()));

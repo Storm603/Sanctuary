@@ -60,7 +60,7 @@ var generateCalendar = function (month, year) {
     // gets the day of the week as an index
     let indexedFirstDayOfMonth = new Date(year, month, 1).getDay();
 
-    let lastMonthDays = daysInMonth(year, month - 1) - (indexedFirstDayOfMonth - 2);
+    let lastMonthDays = new Date(year, month, 0).getDate();/*daysInMonth(year, month - 1) - (indexedFirstDayOfMonth - 2);*/
 
     // sets calendar month
     let calendarMonthElement = document.getElementById('current-month-information');
@@ -84,13 +84,12 @@ var generateCalendar = function (month, year) {
     for (var i = 1; i <= 7; i++) {
         // Will enter if first day of current month is Sunday
         if (indexedFirstDayOfMonth == 0) {
-            tdDay.textContent = lastMonthDays++;
+            tdDay.textContent = lastMonthDays-6+i;
             tdDay.className = 'inactive-calendar-day';
-
+            
             if (i == 7) {
                 tdDay.textContent = ++count;
                 tdDay.className = 'active-calendar-day';
-
             }
         }
         else if (i >= indexedFirstDayOfMonth) {
@@ -98,10 +97,14 @@ var generateCalendar = function (month, year) {
             tdDay.className = 'active-calendar-day';
             tdDay.setAttribute('data-hidden-value', `${year}.${month + 1}.0${tdDay.innerText}`);
         }
-        else {
-            tdDay.textContent = lastMonthDays++;
+        else if (i < indexedFirstDayOfMonth) {
+            tdDay.textContent = lastMonthDays - indexedFirstDayOfMonth + i + 1;
             tdDay.className = 'inactive-calendar-day';
         }
+        //else {
+        //    tdDay.textContent = lastMonthDays++;
+        //    tdDay.className = 'inactive-calendar-day';
+        //}
 
         trWeek.appendChild(tdDay);
         tdDay = document.createElement('td');
@@ -550,7 +553,6 @@ let vetSelectionConfiguring = function () {
 
             let elementId = document.querySelector(`[data-list-id=${event.target.id}]`);
 
-            console.log(elementId);
             currentShownElement.style.display = 'none';
             currentShownElement = elementId;
             currentShownElement.style.display = 'flex';
